@@ -6,7 +6,7 @@
 <p>画像のパス：{{ $item->image->image_path }}</p>
 
 @if ($item->image)
-    <img src="{{ asset('img/'.$item->image->image_path) }}" alt="item">
+    <img src="{{ asset('img/'.$item->image->image_path) }}" alt="商品画像" style="max-width: 240px;">
 @endif
 
 @foreach ($item->categories as $category)
