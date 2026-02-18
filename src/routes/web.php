@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,13 @@ use App\Http\Controllers\ItemController;
 
 Route::get('/', [ItemController::class, 'index']);
 
-Route::get('/items/{item}', [ItemController::class, 'show']);
+Route::get('/item/{item}', [ItemController::class, 'show'])->name('items.show');
+
+Route::middleware('auth')->group(function () {
+
+    Route::post('/item/{item}/like', [LikeController::class, 'store'])
+        ->name('items.like');
+
+    Route::delete('/item/{item}/like', [LikeController::class, 'destroy'])
+        ->name('items.unlike');
+});

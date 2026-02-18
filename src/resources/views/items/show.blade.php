@@ -2,6 +2,19 @@
 
 <p>商品名：{{ $item->title }}</p>
 <p>価格：{{ $item->price }}</p>
+
+{{-- いいね・コメント数エリア --}}
+<div class="item-reactions">
+    <div class="reaction-item">
+        ♡ {{ $item->likes->count() }}
+    </div>
+
+    <div class="reaction-item">
+        💬 {{ $item->comments->count() }}
+    </div>
+</div>
+
+
 <p>出品者名：{{ $item->seller->name }}</p>
 <p>画像のパス：{{ optional($item->image)->image_path }}</p>
 
@@ -16,6 +29,32 @@
         <p>カテゴリ名：{{ $category->name }}</p>
     @endforeach
 @endif
+
+<h2>いいね</h2>
+
+<p>いいね数：{{ $item->likes->count() }}</p>
+
+@auth
+    @php
+        $liked = $item->likes->contains('user_id', auth()->id());
+    @endphp
+
+    @if ($liked)
+        <form method="POST" action="{{ route('items.unlike', $item) }}">
+            @csrf
+            @method('DELETE')
+            <button type="submit">いいね解除</button>
+        </form>
+    @else
+        <form method="POST" action="{{ route('items.like', $item) }}">
+            @csrf
+            <button type="submit">いいね</button>
+        </form>
+    @endif
+@else
+    <a href="/login">ログインしていいね</a>
+    {{-- <a href="{{ route('login') }}">ログインしていいね</a> --}}
+@endauth
 
 <h2>コメント</h2>
 
