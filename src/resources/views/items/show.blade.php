@@ -6,7 +6,7 @@
 <p>画像のパス：{{ $item->image->image_path }}</p>
 
 @if ($item->image)
-    <img src="{{ asset('img/'.$item->image->image_path) }}" alt="商品画像" style="max-width: 240px;">
+    <img src="{{ asset('img/' . $item->image->image_path) }}" alt="商品画像" style="max-width: 240px;">
 @endif
 
 @foreach ($item->categories as $category)
@@ -19,14 +19,13 @@
     <p>コメントはまだありません</p>
 @else
     @foreach ($item->comments as $comment)
-    <div style="display:flex; gap:10px; margin-bottom:12px;">
-      {{-- アイコン --}}
-      <img src="{{ asset('img/default-user.png') }}" alt="user" width="32" height="32">
-    </div>
-            <div>
-                <p>{{ $comment->user->name }}</p>
-                <p>{{ $comment->body }}</p>
-            </div>
-
+        <div style="display:flex; gap:10px; margin-bottom:12px;">
+            {{-- アイコン --}}
+            <img src="{{ asset('img/default-user.png') }}" alt="user" width="32" height="32">
+        </div>
+        <div>
+            <p>{{ $comment->user->name }}</p>
+            <p>{{ $comment->body }}</p>
+        </div>
     @endforeach
 @endif
