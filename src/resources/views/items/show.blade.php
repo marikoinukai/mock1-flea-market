@@ -3,15 +3,19 @@
 <p>商品名：{{ $item->title }}</p>
 <p>価格：{{ $item->price }}</p>
 <p>出品者名：{{ $item->seller->name }}</p>
-<p>画像のパス：{{ $item->image->image_path }}</p>
+<p>画像のパス：{{ optional($item->image)->image_path }}</p>
 
 @if ($item->image)
     <img src="{{ asset('img/' . $item->image->image_path) }}" alt="商品画像" style="max-width: 240px;">
 @endif
 
-@foreach ($item->categories as $category)
-    <p>カテゴリ名：{{ $category->name }}</p>
-@endforeach
+@if ($item->categories->isEmpty())
+    <p>カテゴリ：なし</p>
+@else
+    @foreach ($item->categories as $category)
+        <p>カテゴリ名：{{ $category->name }}</p>
+    @endforeach
+@endif
 
 <h2>コメント</h2>
 
@@ -22,10 +26,10 @@
         <div style="display:flex; gap:10px; margin-bottom:12px;">
             {{-- アイコン --}}
             <img src="{{ asset('img/default-user.png') }}" alt="user" width="32" height="32">
-        </div>
-        <div>
-            <p>{{ $comment->user->name }}</p>
-            <p>{{ $comment->body }}</p>
+            <div>
+                <p>{{ $comment->user->name }}</p>
+                <p>{{ $comment->body }}</p>
+            </div>
         </div>
     @endforeach
 @endif
