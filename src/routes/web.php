@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PurchaseController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -33,6 +34,9 @@ Route::middleware('auth')->group(function () {
     // コメント投稿（追加）
     Route::post('/item/{item}/comments', [CommentController::class, 'store'])
         ->name('items.comments.store');
+
+    Route::get('/purchase/{item}', [PurchaseController::class, 'show'])
+        ->name('purchase.show');
 });
 
 // TODO(提出前に削除): Fortify導入後はこの仮ログインを削除する

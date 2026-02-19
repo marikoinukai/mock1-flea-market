@@ -58,7 +58,7 @@
 
             <div class="purchase-area">
                 @auth
-                    <a href="/purchase/{{ $item->id }}" class="purchase-button">
+                    <a href="{{ route('purchase.show', $item) }}" class="purchase-button">
                         購入手続きへ
                     </a>
                 @else
@@ -137,7 +137,8 @@
     @else
         @foreach ($item->comments as $comment)
             <div class="comment-item">
-                <img src="{{ asset('img/default-user.png') }}" alt="user" class="comment-user-icon">
+                <img src="{{ asset($comment->user->icon_path ?? 'img/default-user.png') }}" alt="user"
+                    class="comment-user-icon">
 
                 <div class="comment-body">
                     <p class="comment-user-name">{{ $comment->user->name }}</p>
