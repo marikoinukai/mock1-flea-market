@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\CommentController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -22,12 +23,16 @@ Route::get('/', [ItemController::class, 'index']);
 Route::get('/item/{item}', [ItemController::class, 'show'])->name('items.show');
 
 Route::middleware('auth')->group(function () {
-
+    // いいね
     Route::post('/item/{item}/like', [LikeController::class, 'store'])
         ->name('items.like');
 
     Route::delete('/item/{item}/like', [LikeController::class, 'destroy'])
         ->name('items.unlike');
+
+    // コメント投稿（追加）
+    Route::post('/item/{item}/comments', [CommentController::class, 'store'])
+        ->name('items.comments.store');
 });
 
 // TODO(提出前に削除): Fortify導入後はこの仮ログインを削除する

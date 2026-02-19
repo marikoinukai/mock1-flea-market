@@ -82,6 +82,19 @@
 
 <h2>コメント</h2>
 
+@auth
+    <form method="POST" action="{{ route('items.comments.store', $item) }}">
+        @csrf
+        <textarea name="body" rows="3">{{ old('body') }}</textarea>
+        @error('body')
+            <p style="color:red">{{ $message }}</p>
+        @enderror
+        <button type="submit">コメントする</button>
+    </form>
+@else
+    <p>（コメントするにはログインが必要です）</p>
+@endauth
+
 @if ($item->comments->isEmpty())
     <p>コメントはまだありません</p>
 @else
