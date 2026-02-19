@@ -20,7 +20,7 @@ class ItemController extends Controller
 
     public function show(Item $item)
     {
-        $item->load(['image', 'seller', 'categories', 'comments.user', 'likes']);
+        $item->load(['image', 'seller', 'categories', 'condition', 'comments.user', 'likes']);
 
         return view('items.show', compact('item'));
     }

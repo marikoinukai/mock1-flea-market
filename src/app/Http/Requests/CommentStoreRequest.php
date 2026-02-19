@@ -16,6 +16,11 @@ class CommentStoreRequest extends FormRequest
         return true;
     }
 
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -28,18 +33,6 @@ class CommentStoreRequest extends FormRequest
         return [
             'body.required' => 'コメントを入力してください',
             'body.max' => 'コメントは255文字以内で入力してください',
-        ];
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [
-            //
         ];
     }
 }
