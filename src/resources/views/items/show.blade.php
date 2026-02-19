@@ -5,15 +5,39 @@
 
 {{-- いいね・コメント数エリア --}}
 <div class="item-reactions">
-    <div class="reaction-item">
-        ♡ {{ $item->likes->count() }}
-    </div>
 
-    <div class="reaction-item">
+    @auth
+        @php
+            $liked = $item->likes->contains('user_id', auth()->id());
+        @endphp
+
+        @if ($liked)
+            <form method="POST" action="{{ route('items.unlike', $item) }}">
+                @csrf
+                @method('DELETE')
+                <button type="submit">
+                    ♡ {{ $item->likes->count() }}
+                </button>
+            </form>
+        @else
+            <form method="POST" action="{{ route('items.like', $item) }}">
+                @csrf
+                <button type="submit">
+                    ♡ {{ $item->likes->count() }}
+                </button>
+            </form>
+        @endif
+    @else
+        <a href="/login">
+            ♡ {{ $item->likes->count() }}
+        </a>
+    @endauth
+
+    <div>
         💬 {{ $item->comments->count() }}
     </div>
-</div>
 
+</div>
 
 <p>出品者名：{{ $item->seller->name }}</p>
 <p>画像のパス：{{ optional($item->image)->image_path }}</p>

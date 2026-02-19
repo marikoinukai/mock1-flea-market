@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LikeController;
 
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,3 +29,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/item/{item}/like', [LikeController::class, 'destroy'])
         ->name('items.unlike');
 });
+
+// TODO(提出前に削除): Fortify導入後はこの仮ログインを削除する
+if (app()->environment('local')) {
+    Route::get('/login', function () {
+        Auth::loginUsingId(1); // id=1 のユーザーで仮ログイン
+        return back();
+    })->name('login');
+}
