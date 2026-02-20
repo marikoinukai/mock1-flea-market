@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -25,6 +26,22 @@ class PurchaseController extends Controller
 
     public function store(Request $request,  Item $item)
     {
-        dd($request->all(), $item->id);
+        $request->validate([
+            'payment_method' => ['required', 'in:convenience,card'],
+        ]);
+
+        $user = Auth::user();
+
+        Order::create([
+            'buyer_id'        => $user->id,
+            'item_id'         => $item->id,
+            'payment_method'          => $request->payment_method,
+            'shipping_postal_code'     => $user->postal_code,
+            'shipping_address_line1'  => $user->address_line1,
+            'shipping_address_line2'  => $user->address_line2,
+        ]);
+
+        return redirect()->route('purchase.show', $item)
+            ->with('success', '購入処理（仮）が完了しました');
     }
 }
