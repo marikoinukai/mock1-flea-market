@@ -26,6 +26,10 @@ class PurchaseController extends Controller
 
     public function store(Request $request,  Item $item)
     {
+        if ($item->is_sold) {
+            return back()->with('error', 'この商品は売り切れです');
+        }
+
         $request->validate([
             'payment_method' => ['required', 'in:convenience,card'],
         ]);
@@ -48,6 +52,8 @@ class PurchaseController extends Controller
             'shipping_address_line2' =>
             $shipping['address_line2'] ?? $user->address_line2,
         ]);
+
+        $item->update(['is_sold' => true]);
 
         session()->forget('purchase.shipping.' . $item->id);
 
