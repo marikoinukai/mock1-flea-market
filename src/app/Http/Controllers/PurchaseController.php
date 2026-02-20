@@ -22,4 +22,9 @@ class PurchaseController extends Controller
 
         return view('purchase.show', compact('item', 'user', 'payments'));
     }
+
+    public function store(Request $request,  Item $item)
+    {
+        dd($request->all(), $item->id);
+    }
 }
