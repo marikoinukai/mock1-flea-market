@@ -39,10 +39,10 @@
     {{-- 配送先（今はダミー表示。User住所カラムを作ったら差し替え） --}}
     <div class="purchase-shipping">
         <h2>配送先</h2>
-        <p>〒 {{ $user->postal_code }}</p>
+        <p>〒 {{ $shipping['postal_code'] ?? $user->postal_code }}</p>
         <p>
-            {{ $user->address_line1 }}
-            {{ $user->address_line2 ?? '' }}
+            {{ $shipping['address_line1'] ?? $user->address_line1 }}
+            {{ $shipping['address_line2'] ?? ($user->address_line2 ?? '') }}
         </p>
     </div>
 </div>

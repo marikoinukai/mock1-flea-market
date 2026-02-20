@@ -32,14 +32,24 @@ class PurchaseController extends Controller
 
         $user = Auth::user();
 
+        $shipping = session('purchase.shipping.' . $item->id);
+
         Order::create([
-            'buyer_id'        => $user->id,
-            'item_id'         => $item->id,
-            'payment_method'          => $request->payment_method,
-            'shipping_postal_code'     => $user->postal_code,
-            'shipping_address_line1'  => $user->address_line1,
-            'shipping_address_line2'  => $user->address_line2,
+            'buyer_id' => $user->id,
+            'item_id' => $item->id,
+            'payment_method' => $request->payment_method,
+
+            'shipping_postal_code' =>
+            $shipping['postal_code'] ?? $user->postal_code,
+
+            'shipping_address_line1' =>
+            $shipping['address_line1'] ?? $user->address_line1,
+
+            'shipping_address_line2' =>
+            $shipping['address_line2'] ?? $user->address_line2,
         ]);
+
+        session()->forget('purchase.shipping.' . $item->id);
 
         return redirect()->route('purchase.show', $item)
             ->with('success', '購入処理（仮）が完了しました');

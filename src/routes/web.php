@@ -40,6 +40,17 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/purchase/{item}', [PurchaseController::class, 'store'])
         ->name('purchase.store');
+
+    Route::get('/purchase/{item}', [PurchaseController::class, 'show'])
+        ->name('purchase.show');
+
+    Route::get('/purchase/address/{item}', [PurchaseController::class, 'editAddress'])
+        ->name('purchase.address.edit');
+
+    Route::post('/purchase/address/{item}', [PurchaseController::class, 'updateAddress'])
+        ->name('purchase.address.update');
+
+    Route::post('/purchase/{item}', [PurchaseController::class, 'store'])->name('purchase.store');
 });
 
 // TODO(提出前に削除): Fortify導入後はこの仮ログインを削除する
