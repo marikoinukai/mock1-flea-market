@@ -57,7 +57,7 @@ class PurchaseController extends Controller
 
         session()->forget('purchase.shipping.' . $item->id);
 
-        return redirect()->route('purchase.show', $item)
+        return redirect()->route('items.index')
             ->with('success', '購入処理（仮）が完了しました');
     }
 }

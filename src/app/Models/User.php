@@ -19,6 +19,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'postal_code',
+        'address_line1',
+        'address_line2',
+        'icon_path',
     ];
 
     // 出品した商品

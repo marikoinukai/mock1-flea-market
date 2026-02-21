@@ -5,6 +5,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\ProfileController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [ItemController::class, 'index']);
+Route::get('/', [ItemController::class, 'index'])->name('items.index');
 
 Route::get('/item/{item}', [ItemController::class, 'show'])->name('items.show');
 
@@ -51,12 +52,8 @@ Route::middleware('auth')->group(function () {
         ->name('purchase.address.update');
 
     Route::post('/purchase/{item}', [PurchaseController::class, 'store'])->name('purchase.store');
-});
 
-// TODO(提出前に削除): Fortify導入後はこの仮ログインを削除する
-if (app()->environment('local')) {
-    Route::get('/login', function () {
-        Auth::loginUsingId(1); // id=1 のユーザーで仮ログイン
-        return back();
-    })->name('login');
-}
+    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+
+    Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
