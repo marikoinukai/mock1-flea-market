@@ -10,7 +10,7 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
-        $tab = $request->query('tab');          // null or 'mylist'
+        $tab = $request->query('tab', 'recommend'); // 'recommend' or 'mylist'
         $keyword = $request->query('keyword');  // 検索ワード
 
         $userId = Auth::id(); // 未ログインなら null
