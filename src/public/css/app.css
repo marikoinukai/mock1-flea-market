@@ -1,0 +1,95 @@
+/* =========================
+   共通リセット（最小限）
+========================= */
+body {
+  margin: 0;
+  background: #fafafa;
+  font-family: sans-serif;
+}
+
+main {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* =========================
+   App layout (共通)
+========================= */
+
+.app-authbar {
+  padding: 10px;
+  background: #f6f6f6;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.app-logout {
+  margin: 0 0 12px;
+  padding: 0 16px;
+}
+
+.app-logout__btn {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.app-main {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 16px 24px;
+  box-sizing: border-box;
+}
+
+/* フラッシュメッセージ */
+.app-flash {
+  margin: 12px 0;
+  padding: 10px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.app-flash--warning {
+  border-color: #f59e0b;
+  background: #fff7ed;
+  color: #b45309;
+}
+
+.app-flash--success {
+  border-color: #22c55e;
+  background: #f0fdf4;
+  color: #166534;
+}
+
+/* =========================
+   UI components（共通部品）
+========================= */
+
+.ui-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.ui-button {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.ui-button--primary {
+  border: none;
+  background: #111;
+  color: #fff;
+}

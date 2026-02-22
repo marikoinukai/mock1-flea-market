@@ -1,64 +1,93 @@
 @extends('layouts.app')
 
-@section('css')
-    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
-@endsection
-
 @section('content')
-    <div class="container">
-        <h2>プロフィール設定</h2>
+    <div class="profile-page">
 
-        @if ($errors->any())
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        @endif
+        <h2 class="profile-title">プロフィール設定</h2>
 
-        <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="profile-form">
             @csrf
 
-            {{-- アイコン表示 --}}
-            <div class="profile-icon">
-                @if ($user->icon_path)
-                    <img src="{{ asset('storage/' . $user->icon_path) }}" alt="icon" class="profile-icon__img">
-                @else
-                    <div class="profile-icon__placeholder"></div>
-                @endif
+            {{-- =========================
+            アイコンエリア
+        ========================== --}}
+            <div class="profile-icon-area">
+
+                <div class="profile-icon">
+                    @if ($user->icon_path)
+                        <img src="{{ asset('storage/' . $user->icon_path) }}" alt="icon" class="profile-icon__img">
+                    @else
+                        <div class="profile-icon__placeholder"></div>
+                    @endif
+                </div>
+
+                <div class="profile-icon-upload">
+                    <label class="profile-button">
+                        画像を選択する
+                        <input type="file" name="icon" accept="image/*" class="profile-input-file">
+                    </label>
+                    <p class="profile-hint">※画像は2MB以内 / jpg・png</p>
+                    @error('icon')
+                        <p class="profile-error">{{ $message }}</p>
+                    @enderror
+                </div>
+
             </div>
 
-            {{-- アイコン選択 --}}
+            {{-- =========================
+            ユーザー名
+        ========================== --}}
             <div class="profile-field">
-                <label class="profile-label">アイコン画像</label>
-                <input type="file" name="icon" accept="image/*" class="profile-input-file">
-
-                @error('icon')
+                <label class="profile-label">ユーザー名</label>
+                <input type="text" name="name" value="{{ old('name', $user->name) }}" class="profile-input ui-input">
+                @error('name')
                     <p class="profile-error">{{ $message }}</p>
                 @enderror
             </div>
 
-            <div>
-                <label>ユーザー名</label><br>
-                <input type="text" name="name" value="{{ old('name', $user->name) }}">
+            {{-- =========================
+            郵便番号
+        ========================== --}}
+            <div class="profile-field">
+                <label class="profile-label">郵便番号</label>
+                <input type="text" name="postal_code" value="{{ old('postal_code', $user->postal_code) }}"
+                    class="profile-input ui-input">
+                @error('postal_code')
+                    <p class="profile-error">{{ $message }}</p>
+                @enderror
             </div>
 
-            <div>
-                <label>郵便番号</label><br>
-                <input type="text" name="postal_code" value="{{ old('postal_code', $user->postal_code) }}">
+            {{-- =========================
+            住所
+        ========================== --}}
+            <div class="profile-field">
+                <label class="profile-label">住所</label>
+                <input type="text" name="address_line1" value="{{ old('address_line1', $user->address_line1) }}"
+                    class="profile-input ui-input">
+                @error('address_line1')
+                    <p class="profile-error">{{ $message }}</p>
+                @enderror
             </div>
 
-            <div>
-                <label>住所</label><br>
-                <input type="text" name="address_line1" value="{{ old('address_line1', $user->address_line1) }}">
+            {{-- =========================
+            建物名
+        ========================== --}}
+            <div class="profile-field">
+                <label class="profile-label">建物名・部屋番号</label>
+                <input type="text" name="address_line2" value="{{ old('address_line2', $user->address_line2) }}"
+                    class="profile-input ui-input">
+                @error('address_line2')
+                    <p class="profile-error">{{ $message }}</p>
+                @enderror
             </div>
 
-            <div>
-                <label>建物名・部屋番号</label><br>
-                <input type="text" name="address_line2" value="{{ old('address_line2', $user->address_line2) }}">
-            </div>
+            {{-- =========================
+            送信ボタン
+        ========================== --}}
+            <button type="submit" class="profile-submit">
+                更新する
+            </button>
 
-            <button>更新する</button>
         </form>
     </div>
 @endsection
