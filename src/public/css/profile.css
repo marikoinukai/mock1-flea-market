@@ -1,0 +1,34 @@
+/* アイコン全体 */
+.profile-icon {
+  margin-bottom: 16px;
+}
+
+/* 画像表示 */
+.profile-icon__img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* 未設定時の丸 */
+.profile-icon__placeholder {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #ddd;
+}
+
+/* フィールド */
+.profile-field {
+  margin-bottom: 16px;
+}
+
+.profile-label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.profile-error {
+  color: red;
+}
