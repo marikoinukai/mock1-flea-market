@@ -36,24 +36,24 @@ Route::middleware('auth')->group(function () {
     Route::post('/item/{item}/comments', [CommentController::class, 'store'])
         ->name('items.comments.store');
 
+    // プロフィール
+    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+
+    Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
+
+Route::middleware(['auth', 'profile.completed'])->group(function () {
+
+    // 購入
     Route::get('/purchase/{item}', [PurchaseController::class, 'show'])
         ->name('purchase.show');
 
     Route::post('/purchase/{item}', [PurchaseController::class, 'store'])
         ->name('purchase.store');
 
-    Route::get('/purchase/{item}', [PurchaseController::class, 'show'])
-        ->name('purchase.show');
-
     Route::get('/purchase/address/{item}', [PurchaseController::class, 'editAddress'])
         ->name('purchase.address.edit');
 
     Route::post('/purchase/address/{item}', [PurchaseController::class, 'updateAddress'])
         ->name('purchase.address.update');
-
-    Route::post('/purchase/{item}', [PurchaseController::class, 'store'])->name('purchase.store');
-
-    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-
-    Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
 });

@@ -27,6 +27,19 @@
     </form>
     {{-- ここに各画面の @section('content') が差し込まれる --}}
     <main>
+
+        @if (session('warning'))
+            <div style="margin:12px 0; padding:10px; border:1px solid #f59e0b; background:#fff7ed; color:#b45309;">
+                {{ session('warning') }}
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div style="margin:12px 0; padding:10px; border:1px solid #22c55e; background:#f0fdf4; color:#166534;">
+                {{ session('success') }}
+            </div>
+        @endif
+
         @yield('content')
     </main>
 
