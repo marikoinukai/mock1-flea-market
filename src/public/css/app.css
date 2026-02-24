@@ -404,7 +404,7 @@ body {
 .check-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px 40px;
+  gap: 12px 24px;
   align-items: start;
 }
 .check-item {

@@ -38,7 +38,7 @@
                         {{-- <button type="submit" class="ui-button app-header__searchBtn">出品</button> --}}
                     </a>
                     {{-- 出品（リンクにする） --}}
-                    <a href="{{ route('items.index') }}" class="ui-button ui-button--primary app-header__navBtn">
+                    <a href="{{ route('items.create') }}" class="ui-button ui-button--primary app-header__navBtn">
                         出品
                     </a>
                 @else

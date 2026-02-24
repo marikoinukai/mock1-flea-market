@@ -24,43 +24,11 @@
                 <label class="form-label">
                     商品画像 <span class="required">*</span>
                 </label>
-                <input class="ui-input" type="file" name="image" accept=".png,.jpeg,.jpg">
+                <input class="ui-input" type="file" name="image" accept=".png,.jpeg">
                 @error('image')
                     <p class="ui-error">{{ $message }}</p>
                 @enderror
                 <p class="form-help">.png / .jpeg のみ（要件）</p>
-            </div>
-
-            {{-- 商品名 --}}
-            <div class="form-group">
-                <label class="form-label">
-                    商品名 <span class="required">*</span>
-                </label>
-                <input class="ui-input" type="text" name="title" value="{{ old('title') }}" maxlength="255">
-                @error('title')
-                    <p class="ui-error">{{ $message }}</p>
-                @enderror
-            </div>
-
-            {{-- ブランド名 --}}
-            <div class="form-group">
-                <label class="form-label">ブランド名</label>
-                <input class="ui-input" type="text" name="brand" value="{{ old('brand') }}" maxlength="255">
-                @error('brand')
-                    <p class="ui-error">{{ $message }}</p>
-                @enderror
-            </div>
-
-            {{-- 商品説明 --}}
-            <div class="form-group">
-                <label class="form-label">
-                    商品説明 <span class="required">*</span>
-                </label>
-                <textarea class="ui-input" name="description" rows="6" maxlength="255">{{ old('description') }}</textarea>
-                @error('description')
-                    <p class="ui-error">{{ $message }}</p>
-                @enderror
-                <p class="form-help">最大255文字（要件）</p>
             </div>
 
             {{-- カテゴリー --}}
@@ -96,14 +64,46 @@
                     <option value="">選択してください</option>
                     @foreach ($conditions as $id => $name)
                         <option value="{{ $id }}"
-                            {{ (string) old('condition_id') === (string) $id ? 'selected' : '' }}>
+                            {{ (string) old('item_condition_id') === (string) $id ? 'selected' : '' }}>
                             {{ $name }}
                         </option>
                     @endforeach
                 </select>
-                @error('condition_id')
+                @error('item_condition_id')
                     <p class="ui-error">{{ $message }}</p>
                 @enderror
+            </div>
+
+            {{-- 商品名 --}}
+            <div class="form-group">
+                <label class="form-label">
+                    商品名 <span class="required">*</span>
+                </label>
+                <input class="ui-input" type="text" name="title" value="{{ old('title') }}" maxlength="255">
+                @error('title')
+                    <p class="ui-error">{{ $message }}</p>
+                @enderror
+            </div>
+
+            {{-- ブランド名 --}}
+            <div class="form-group">
+                <label class="form-label">ブランド名</label>
+                <input class="ui-input" type="text" name="brand_name" value="{{ old('brand_name') }}" maxlength="255">
+                @error('brand_name')
+                    <p class="ui-error">{{ $message }}</p>
+                @enderror
+            </div>
+
+            {{-- 商品説明 --}}
+            <div class="form-group">
+                <label class="form-label">
+                    商品説明 <span class="required">*</span>
+                </label>
+                <textarea class="ui-input" name="description" rows="6" maxlength="255">{{ old('description') }}</textarea>
+                @error('description')
+                    <p class="ui-error">{{ $message }}</p>
+                @enderror
+                <p class="form-help">最大255文字（要件）</p>
             </div>
 
             {{-- 価格 --}}

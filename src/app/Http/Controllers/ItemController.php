@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ExhibitionRequest;
 use App\Models\Item;
+use App\Models\ItemImage;
+use Illuminate\Support\Facades\Storage;
+
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
@@ -74,5 +79,41 @@ class ItemController extends Controller
         ];
 
         return view('items.create', compact('categories', 'conditions'));
+    }
+
+    public function store(ExhibitionRequest $request)
+    {
+        $user = auth()->user();
+
+        // ======================
+        // ① item作成
+        // ======================
+        $item = Item::create([
+            'seller_id' => $user->id,
+            'title' => $request->title,
+            'brand_name' => $request->brand_name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'item_condition_id' => $request->condition_id,
+        ]);
+
+        // ======================
+        // ② 画像保存（storage）
+        // ======================
+        $path = $request->file('image')->store('items', 'public');
+
+        ItemImage::create([
+            'item_id' => $item->id,
+            'image_path' => $path,
+        ]);
+
+        // ======================
+        // ③ カテゴリ複数保存
+        // ======================
+        $item->categories()->sync($request->category_ids);
+
+        return redirect()
+            ->route('items.index')
+            ->with('success', '商品を出品しました');
     }
 }
