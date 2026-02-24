@@ -419,3 +419,53 @@ body {
   margin-top: 22px;
   align-items: center;
 }
+
+/* =========================
+   Category chips（横並び）
+========================= */
+
+.check-grid{
+  display:flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.check-item{
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* checkbox非表示 */
+.check-input{
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 未選択時 */
+.check-chip{
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid #ff5655;
+  background: #fff;
+  color: #ff5655;
+  font-size: 12px;
+  line-height: 1;
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+
+/* hover */
+.check-item:hover .check-chip{
+  background: rgba(255, 86, 85, 0.08);
+}
+
+/* 選択中 */
+.check-input:checked + .check-chip{
+  background:#ff5655;
+  color:#fff;
+  border-color:#ff5655;
+}

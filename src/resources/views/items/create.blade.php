@@ -40,9 +40,9 @@
                 <div class="check-grid">
                     @foreach ($categories as $id => $name)
                         <label class="check-item">
-                            <input type="checkbox" name="category_ids[]" value="{{ $id }}"
+                            <input class="check-input" type="checkbox" name="category_ids[]" value="{{ $id }}"
                                 {{ in_array($id, old('category_ids', [])) ? 'checked' : '' }}>
-                            <span>{{ $name }}</span>
+                            <span class="check-chip">{{ $name }}</span>
                         </label>
                     @endforeach
                 </div>
