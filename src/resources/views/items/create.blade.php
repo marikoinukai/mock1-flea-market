@@ -60,7 +60,7 @@
                 <label class="form-label">
                     商品の状態 <span class="required">*</span>
                 </label>
-                <select class="ui-input" name="condition_id">
+                <select class="ui-input" name="item_condition_id">
                     <option value="">選択してください</option>
                     @foreach ($conditions as $id => $name)
                         <option value="{{ $id }}"

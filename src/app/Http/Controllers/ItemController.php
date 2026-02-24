@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ExhibitionRequest;
 use App\Models\Item;
 use App\Models\ItemImage;
+use App\Models\Category;
+use App\Models\ItemCondition;
 use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
@@ -63,20 +65,8 @@ class ItemController extends Controller
 
     public function create()
     {
-        // TODO: 後でDBマスタに置き換え
-        $categories = [
-            1 => 'レディース',
-            2 => 'メンズ',
-            3 => '家電',
-            // ...
-        ];
-
-        $conditions = [
-            1 => '新品・未使用',
-            2 => '未使用に近い',
-            3 => '目立った傷や汚れなし',
-            // ...
-        ];
+        $categories = Category::orderBy('id')->pluck('name', 'id');
+        $conditions = ItemCondition::orderBy('id')->pluck('name', 'id');
 
         return view('items.create', compact('categories', 'conditions'));
     }
@@ -94,7 +84,7 @@ class ItemController extends Controller
             'brand_name' => $request->brand_name,
             'description' => $request->description,
             'price' => $request->price,
-            'item_condition_id' => $request->condition_id,
+            'item_condition_id' => $request->item_condition_id,
         ]);
 
         // ======================

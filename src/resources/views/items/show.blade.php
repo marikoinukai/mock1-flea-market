@@ -8,7 +8,7 @@
         {{-- 左：画像エリア --}}
         <div class="item-detail__left">
             @if ($item->image)
-                <img src="{{ asset('img/' . $item->image->image_path) }}" alt="商品画像" class="item-image">
+                <img src="{{ asset('storage/' . $item->image->image_path) }}" alt="商品画像" class="item-image">
             @else
                 <p class="item-image-empty">画像なし</p>
             @endif
@@ -140,8 +140,15 @@
         @else
             @foreach ($item->comments as $comment)
                 <div class="comment-item">
-                    <img src="{{ asset($comment->user->icon_path ?? 'img/default-user.png') }}" alt="user"
-                        class="comment-user-icon">
+                    @php
+                        $iconPath = optional($comment->user)->icon_path;
+                    @endphp
+
+                    @if ($iconPath)
+                        <img src="{{ asset('storage/' . $iconPath) }}" alt="user" class="comment-user-icon">
+                    @else
+                        <img src="{{ asset('img/default-user.png') }}" alt="user" class="comment-user-icon">
+                    @endif
 
                     <div class="comment-body">
                         <p class="comment-user-name">{{ $comment->user->name }}</p>
@@ -151,3 +158,4 @@
             @endforeach
         @endif
     </div>
+@endsection
