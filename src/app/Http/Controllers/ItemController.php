@@ -55,4 +55,24 @@ class ItemController extends Controller
 
         return view('items.show', compact('item'));
     }
+
+    public function create()
+    {
+        // TODO: 後でDBマスタに置き換え
+        $categories = [
+            1 => 'レディース',
+            2 => 'メンズ',
+            3 => '家電',
+            // ...
+        ];
+
+        $conditions = [
+            1 => '新品・未使用',
+            2 => '未使用に近い',
+            3 => '目立った傷や汚れなし',
+            // ...
+        ];
+
+        return view('items.create', compact('categories', 'conditions'));
+    }
 }
