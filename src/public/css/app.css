@@ -354,118 +354,204 @@ body {
 }
 
 /* =========================
-   Sell page（商品出品画面）
+   Sell page （items.create用）
 ========================= */
 
-.sell-form .form-group { margin-bottom: 18px; }
-.form-label { display:block; margin-bottom: 6px; font-weight: 600; }
-.required { color: #d00; font-weight: 700; }
-.ui-error { color:#d00; font-size: 13px; margin-top: 6px; }
-.form-help { font-size: 12px; opacity: .75; margin-top: 6px; }
-
-.check-grid {
-  display:grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px 12px;
+/* ページ幅・タイトル */
+.sell-page{
+  max-width: 760px; /* 見本寄せ：680より少し広め */
+  margin: 0 auto;
 }
 
-.check-item {
-  display:flex;
-  gap: 8px;
-  align-items:center;
-}
-
-.form-actions {
-  display:flex;
-  gap: 10px;
-  margin-top: 18px;
-}
-/* =========================
-   Sell page（商品出品画面）
-========================= */
-
-.sell-page {
-  max-width: 900px;
-}
-
-.sell-title {
+.sell-title{
+  text-align: center;
   font-size: 28px;
   font-weight: 800;
   margin: 0 0 18px;
 }
 
-.sell-form .form-group { margin-bottom: 18px; }
-.form-label { display:block; margin-bottom: 6px; font-weight: 700; }
-.required { color: #d00; font-weight: 800; }
-.ui-error { color:#d00; font-size: 13px; margin-top: 6px; }
-.form-help { font-size: 12px; opacity: .75; margin-top: 6px; }
-
-/* カテゴリを「左・右」に分かれる感じに寄せる */
-.check-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px 24px;
-  align-items: start;
+/* セクション見出し + 罫線 */
+.sell-section__title{
+  margin: 26px 0 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #666;
 }
-.check-item {
-  display: inline-flex;
-  gap: 10px;
-  align-items: center;
+.sell-section__rule{
+  height: 1px;
+  background: #ddd;
+  margin-bottom: 18px;
 }
 
-.form-actions {
-  display:flex;
-  gap: 14px;
-  margin-top: 22px;
-  align-items: center;
+/* フォーム共通 */
+.sell-form .form-group{ margin-bottom: 18px; }
+
+.sell-form .form-label{
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.sell-form .required{
+  color: #d00;
+  font-weight: 800;
+}
+
+.sell-form .ui-error{
+  color: #d00;
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.sell-form .form-help{
+  font-size: 12px;
+  opacity: .75;
+  margin-top: 6px;
 }
 
 /* =========================
-   Category chips（横並び）
+   商品画像
 ========================= */
 
-.check-grid{
-  display:flex;
+.sell-image__label{
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.sell-image__drop{
+  width: 100%;
+  height: 120px;
+
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.sell-image__input{
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sell-image__btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 16px;
+  border-radius: 6px;
+
+  border: 1px solid #ff5655;
+  color: #ff5655;
+  background: #fff;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sell-image__drop img{
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+}
+
+/* =========================
+   カテゴリ（チップ・横並び・checkbox非表示）
+========================= */
+
+.sell-form .check-grid{
+  display: flex;
   flex-wrap: wrap;
   gap: 12px;
 }
 
-.check-item{
+.sell-form .check-item{
   position: relative;
   display: inline-block;
   cursor: pointer;
   user-select: none;
 }
 
-/* checkbox非表示 */
-.check-input{
+.sell-form .check-input{
   position: absolute;
   opacity: 0;
   pointer-events: none;
 }
 
-/* 未選択時 */
-.check-chip{
+.sell-form .check-chip{
   display: inline-flex;
   align-items: center;
+
   padding: 6px 12px;
   border-radius: 999px;
+
   border: 1px solid #ff5655;
   background: #fff;
   color: #ff5655;
+
   font-size: 12px;
   line-height: 1;
+
   transition: background .15s ease, color .15s ease, border-color .15s ease;
 }
 
-/* hover */
-.check-item:hover .check-chip{
+.sell-form .check-item:hover .check-chip{
   background: rgba(255, 86, 85, 0.08);
 }
 
-/* 選択中 */
-.check-input:checked + .check-chip{
-  background:#ff5655;
-  color:#fff;
-  border-color:#ff5655;
+.sell-form .check-input:checked + .check-chip{
+  background: #ff5655;
+  color: #fff;
+  border-color: #ff5655;
+}
+
+/* =========================
+   商品の状態（select 矢印見本寄せ）
+========================= */
+
+.sell-form select.ui-input{
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  height: 44px;
+  padding-right: 40px;
+  border-radius: 6px;
+  border: 1px solid #999;
+  background-color: #fff;
+
+  background-image:
+    url("data:image/svg+xml;utf8,<svg fill='%23666' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+/* =========================
+   送信ボタン（見本：赤ベタ横長）
+========================= */
+
+.sell-form .form-actions{
+  margin-top: 22px;
+}
+
+.sell-form .sell-submit{
+  width: 100%;
+  height: 44px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: #ff5655;
+  color: #fff;
+
+  font-weight: 700;
+  cursor: pointer;
 }

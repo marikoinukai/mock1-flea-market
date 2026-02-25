@@ -20,16 +20,23 @@
             @csrf
 
             {{-- 商品画像 --}}
-            <div class="form-group">
-                <label class="form-label">
+            <div class="sell-image">
+                <label class="sell-image__label">
                     商品画像 <span class="required">*</span>
                 </label>
-                <input class="ui-input" type="file" name="image" accept=".png,.jpeg">
+
+                <label class="sell-image__drop">
+                    <input class="sell-image__input" type="file" name="image" accept=".png,.jpeg">
+                    <span class="sell-image__btn">画像を選択する</span>
+                </label>
+
                 @error('image')
                     <p class="ui-error">{{ $message }}</p>
                 @enderror
-                <p class="form-help">.png / .jpeg のみ（要件）</p>
             </div>
+
+            <h2 class="sell-section__title">商品の詳細</h2>
+            <div class="sell-section__rule"></div>
 
             {{-- カテゴリー --}}
             <div class="form-group">
@@ -73,6 +80,9 @@
                     <p class="ui-error">{{ $message }}</p>
                 @enderror
             </div>
+
+            <h2 class="sell-section__title">商品名と説明</h2>
+            <div class="sell-section__rule"></div>
 
             {{-- 商品名 --}}
             <div class="form-group">
@@ -121,10 +131,10 @@
 
             {{-- ボタン --}}
             <div class="form-actions">
-                <button class="ui-button ui-button--primary" type="submit">出品する</button>
-                <a class="ui-button" href="{{ route('items.index') }}">戻る</a>
+                <button class="sell-submit" type="submit">出品する</button>
             </div>
-
         </form>
     </div>
 @endsection
+
+<script src="{{ asset('js/sell.js') }}"></script>
