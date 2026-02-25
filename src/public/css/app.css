@@ -392,10 +392,10 @@ body {
   font-weight: 700;
 }
 
-.sell-form .required{
+/* .sell-form .required{
   color: #d00;
   font-weight: 800;
-}
+} */
 
 .sell-form .ui-error{
   color: #d00;
@@ -554,4 +554,26 @@ body {
 
   font-weight: 700;
   cursor: pointer;
+}
+
+/* =========================
+   Sell price（￥左固定）
+========================= */
+
+.price-input{
+  position: relative;
+}
+
+.price-input__yen{
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color:#555;
+  font-weight:700;
+  pointer-events:none;
+}
+
+.price-input__field{
+  padding-left: 28px; /* ← ￥のスペース */
 }

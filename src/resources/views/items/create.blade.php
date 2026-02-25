@@ -22,7 +22,7 @@
             {{-- 商品画像 --}}
             <div class="sell-image">
                 <label class="sell-image__label">
-                    商品画像 <span class="required">*</span>
+                    商品画像
                 </label>
 
                 <label class="sell-image__drop">
@@ -41,7 +41,7 @@
             {{-- カテゴリー --}}
             <div class="form-group">
                 <label class="form-label">
-                    カテゴリー <span class="required">*</span>
+                    カテゴリー
                 </label>
 
                 <div class="check-grid">
@@ -65,7 +65,7 @@
             {{-- 商品の状態 --}}
             <div class="form-group">
                 <label class="form-label">
-                    商品の状態 <span class="required">*</span>
+                    商品の状態
                 </label>
                 <select class="ui-input" name="item_condition_id">
                     <option value="">選択してください</option>
@@ -87,7 +87,7 @@
             {{-- 商品名 --}}
             <div class="form-group">
                 <label class="form-label">
-                    商品名 <span class="required">*</span>
+                    商品名
                 </label>
                 <input class="ui-input" type="text" name="title" value="{{ old('title') }}" maxlength="255">
                 @error('title')
@@ -107,26 +107,28 @@
             {{-- 商品説明 --}}
             <div class="form-group">
                 <label class="form-label">
-                    商品説明 <span class="required">*</span>
+                    商品の説明
                 </label>
                 <textarea class="ui-input" name="description" rows="6" maxlength="255">{{ old('description') }}</textarea>
                 @error('description')
                     <p class="ui-error">{{ $message }}</p>
                 @enderror
-                <p class="form-help">最大255文字（要件）</p>
             </div>
 
             {{-- 価格 --}}
             <div class="form-group">
                 <label class="form-label">
-                    価格 <span class="required">*</span>
+                    販売価格
                 </label>
-                <input class="ui-input" type="number" name="price" value="{{ old('price') }}" min="0"
-                    step="1">
+                <div class="price-input">
+                    <span class="price-input__yen">¥</span>
+
+                    <input class="ui-input price-input__field" type="number" name="price" value="{{ old('price') }}"
+                        min="0" step="1">
+                </div>
                 @error('price')
                     <p class="ui-error">{{ $message }}</p>
                 @enderror
-                <p class="form-help">0円以上（要件）</p>
             </div>
 
             {{-- ボタン --}}
