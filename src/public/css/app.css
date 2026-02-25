@@ -359,27 +359,27 @@ body {
 
 /* ページ幅・タイトル */
 .sell-page{
-  max-width: 760px; /* 見本寄せ：680より少し広め */
+  max-width: 680px;
   margin: 0 auto;
 }
 
 .sell-title{
   text-align: center;
-  font-size: 28px;
-  font-weight: 800;
+  font-size: 36px;
+  font-weight: 700;
   margin: 0 0 18px;
 }
 
 /* セクション見出し + 罫線 */
 .sell-section__title{
   margin: 26px 0 10px;
-  font-size: 18px;
+  font-size: 30px;
   font-weight: 700;
-  color: #666;
+  color: #5F5F5F;
 }
 .sell-section__rule{
   height: 1px;
-  background: #ddd;
+  background: #5F5F5F;
   margin-bottom: 18px;
 }
 
@@ -390,12 +390,8 @@ body {
   display: block;
   margin-bottom: 6px;
   font-weight: 700;
+  font-size: 24px;
 }
-
-/* .sell-form .required{
-  color: #d00;
-  font-weight: 800;
-} */
 
 .sell-form .ui-error{
   color: #d00;
@@ -410,6 +406,22 @@ body {
 }
 
 /* =========================
+   Sell inputs（Figma：W680 H45 R4 Border#5F5F5F）
+========================= */
+
+/* 1行の入力欄（text/number/select） */
+.sell-form .ui-input{
+  height: 45px;
+  border-radius: 4px;
+  border: 1px solid #5F5F5F;
+}
+
+/* textareaは高さ固定しない（崩れるので除外） */
+.sell-form textarea.ui-input{
+  height: auto;
+}
+
+/* =========================
    商品画像
 ========================= */
 
@@ -421,7 +433,7 @@ body {
 
 .sell-image__drop{
   width: 100%;
-  height: 120px;
+  height: 150px;
 
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -522,10 +534,10 @@ body {
   -webkit-appearance: none;
   -moz-appearance: none;
 
-  height: 44px;
+  height: 45px;
   padding-right: 40px;
-  border-radius: 6px;
-  border: 1px solid #999;
+  border-radius: 4px;
+  border: 1px solid #5F5F5F;
   background-color: #fff;
 
   background-image:
