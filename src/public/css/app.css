@@ -80,7 +80,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 8px;
   background: #fff;
-  font-size: 14px;
+  font-size: 24px;
   box-sizing: border-box;
 }
 
@@ -90,7 +90,7 @@ body {
   border-radius: 4px;
   background: #fff;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 24px;
 }
 
 .ui-button--primary {
@@ -133,7 +133,10 @@ body {
 }
 
 .app-header__searchInput {
-    flex: 1;
+  flex: 1;
+  width: 500px;
+  height: 50px;
+  border-radius: 5px;
 }
 
 .app-header__searchBtn {
@@ -150,7 +153,7 @@ body {
 .app-header__link {
   text-decoration: none;
   color: #FFFFFF;
-  font-size: 14px;
+  font-size: 24px;
   background: none;
   border: none;
   padding: 0;
@@ -166,7 +169,7 @@ body {
 }
 
 .app-header__userText {
-  font-size: 14px;
+  font-size: 24px;
 }
 
 /* =========================
@@ -372,23 +375,25 @@ body {
 
 /* セクション見出し + 罫線 */
 .sell-section__title{
-  margin: 26px 0 10px;
   font-size: 30px;
   font-weight: 700;
   color: #5F5F5F;
+  margin-top:32px;
+  margin-bottom:8px;
 }
 .sell-section__rule{
   height: 1px;
   background: #5F5F5F;
-  margin-bottom: 18px;
+  margin-bottom: 24px;
 }
 
 /* フォーム共通 */
-.sell-form .form-group{ margin-bottom: 18px; }
+.sell-form .form-group{
+  margin-bottom: 24px; }
 
 .sell-form .form-label{
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   font-weight: 700;
   font-size: 24px;
 }
@@ -542,6 +547,9 @@ body {
   border: 1px solid #5F5F5F;
   background-color: #fff;
 
+  font-size: 16px;
+  font-weight: 700;
+
   background-image:
     url("data:image/svg+xml;utf8,<svg fill='%23666' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
   background-repeat: no-repeat;
@@ -553,7 +561,7 @@ body {
 ========================= */
 
 .sell-form .form-actions{
-  margin-top: 22px;
+  margin-top: 32px;
 }
 
 .sell-form .sell-submit{
