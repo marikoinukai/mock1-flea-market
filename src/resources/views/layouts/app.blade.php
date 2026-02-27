@@ -33,9 +33,8 @@
                         </button>
                     </form>
 
-                    <a href="{{ route('profile.edit') }}" class="app-header__user">
+                    <a href="{{ route('mypage') }}" class="app-header__user">
                         <span class="app-header__userText">マイページ</span>
-                        {{-- <button type="submit" class="ui-button app-header__searchBtn">出品</button> --}}
                     </a>
                     {{-- 出品（リンクにする） --}}
                     <a href="{{ route('items.create') }}" class="app-header__navBtn">

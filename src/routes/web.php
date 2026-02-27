@@ -36,10 +36,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/item/{item}/comments', [CommentController::class, 'store'])
         ->name('items.comments.store');
 
-    // プロフィール
+    // マイページ
+    Route::get('/mypage', [ProfileController::class, 'show'])->name('mypage');
+
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
-    Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 Route::middleware(['auth', 'profile.completed'])->group(function () {

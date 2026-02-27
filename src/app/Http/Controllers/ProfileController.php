@@ -3,16 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
 {
+    public function show()
+    {
+    $user = auth()->user();
+
+    // まずは画面表示だけ作る（中身は後で増やせる）
+    return view('mypage.index', compact('user'));
+    }
+    
     public function edit()
     {
         $user = auth()->user();
         return view('mypage.profile', compact('user'));
     }
 
-    public function update(Request $request)
+    public function update(ProfileRequest $request)
     {
         /** @var \App\Models\User $user */
         $user = auth()->user();

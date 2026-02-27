@@ -7,6 +7,7 @@
 
         <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="profile-form">
             @csrf
+            @method('PUT')
 
             {{-- =========================
             アイコンエリア
@@ -50,8 +51,7 @@
         ========================== --}}
             <div class="profile-field">
                 <label class="profile-label">郵便番号</label>
-                <input type="text" name="postal_code" value="{{ old('postal_code', $user->postal_code) }}"
-                    class="profile-input ui-input">
+                <input type="text" name="postal_code" value="{{ old('postal_code', $user->postal_code) }}"placeholder="123-4567" class="profile-input ui-input">
                 @error('postal_code')
                     <p class="profile-error">{{ $message }}</p>
                 @enderror

@@ -56,20 +56,6 @@
                                         <div class="item-card__title">
                                             {{ $item->title }}
                                         </div>
-
-                                        {{-- 出品者（アイコン＋名前） --}}
-                                        <div class="item-card__seller">
-                                            @if ($item->seller && $item->seller->icon_path)
-                                                <img src="{{ asset('storage/' . $item->seller->icon_path) }}"
-                                                    class="item-card__avatar" alt="seller">
-                                            @else
-                                                <span class="item-card__avatar item-card__avatar--placeholder"></span>
-                                            @endif
-
-                                            <span class="item-card__sellerName">
-                                                {{ $item->seller->name ?? 'unknown' }}
-                                            </span>
-                                        </div>
                                     </div>
                                 </div>
 
