@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+ if (!document.querySelector('.sell-page')) return; // 出品ページ以外は止める
 
   const input = document.querySelector('.sell-image__input');
-
   if (!input) return; // 出品画面以外では何もしない
 
     const drop = document.querySelector('.sell-image__drop');
+    if (!drop) return;
     const btn  = document.querySelector('.sell-image__btn'); // ボタンを隠す
 
   // プレビュー用imgを自動生成

@@ -5,17 +5,6 @@
 
         <h1 class="sell-title">商品の出品</h1>
 
-        {{-- 全体エラー --}}
-        @if ($errors->any())
-            <div class="ui-alert ui-alert--danger" role="alert">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         <form action="{{ route('items.store') }}" method="POST" enctype="multipart/form-data" class="sell-form">
             @csrf
 
@@ -55,9 +44,6 @@
                 </div>
 
                 @error('category_ids')
-                    <p class="ui-error">{{ $message }}</p>
-                @enderror
-                @error('category_ids.*')
                     <p class="ui-error">{{ $message }}</p>
                 @enderror
             </div>
@@ -138,5 +124,6 @@
         </form>
     </div>
 @endsection
-
-<script src="{{ asset('js/sell.js') }}"></script>
+@push('scripts')
+    <script src="{{ asset('js/sell.js') }}" defer></script>
+@endpush

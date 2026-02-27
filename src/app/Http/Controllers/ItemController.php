@@ -8,6 +8,7 @@ use App\Models\ItemImage;
 use App\Models\Category;
 use App\Models\ItemCondition;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
@@ -74,33 +75,32 @@ class ItemController extends Controller
     public function store(ExhibitionRequest $request)
     {
         $user = auth()->user();
+        $validated = $request->validated();
 
-        // ======================
-        // ① item作成
-        // ======================
-        $item = Item::create([
-            'seller_id' => $user->id,
-            'title' => $request->title,
-            'brand_name' => $request->brand_name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'item_condition_id' => $request->item_condition_id,
-        ]);
+        DB::transaction(function () use ($user, $validated, $request) {
 
-        // ======================
-        // ② 画像保存（storage）
-        // ======================
-        $path = $request->file('image')->store('items', 'public');
+            // ① item作成
+            $item = Item::create([
+                'seller_id' => $user->id,
+                'title' => $validated['title'],
+                'brand_name' => $validated['brand_name'] ?? null,
+                'description' => $validated['description'],
+                'price' => $validated['price'],
+                'item_condition_id' => $validated['item_condition_id'],
+            ]);
 
-        ItemImage::create([
-            'item_id' => $item->id,
-            'image_path' => $path,
-        ]);
+            // ② 画像保存（storage）
+            $imageFile = $request->file('image'); // requiredなので基本nullにならない
+            $path = $imageFile->store('items', 'public');
 
-        // ======================
-        // ③ カテゴリ複数保存
-        // ======================
-        $item->categories()->sync($request->category_ids);
+            ItemImage::create([
+                'item_id' => $item->id,
+                'image_path' => $path,
+            ]);
+
+            // ③ カテゴリ複数保存
+            $item->categories()->sync($validated['category_ids']);
+        });
 
         return redirect()
             ->route('items.index')
