@@ -3,7 +3,7 @@
 @section('content')
     <div class="profile-page">
 
-        <h2 class="profile-title">プロフィール設定</h2>
+        <h1 class="profile-title">プロフィール設定</h1>
 
         <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="profile-form">
             @csrf
@@ -13,19 +13,21 @@
             アイコンエリア
         ========================== --}}
             <div class="profile-icon-area">
-
                 <div class="profile-icon">
                     @if ($user->icon_path)
-                        <img src="{{ asset('storage/' . $user->icon_path) }}" alt="icon" class="profile-icon__img">
+                        <img id="icon-preview" src="{{ asset('storage/' . $user->icon_path) }}" alt="icon"
+                            class="profile-icon__img">
                     @else
+                        {{-- 画像が無い場合のjs用 img --}}
+                        <img id="icon-preview" src="" alt="icon" class="profile-icon__img"
+                            style="display:none;">
                         <div class="profile-icon__placeholder"></div>
                     @endif
                 </div>
-
                 <div class="profile-icon-upload">
                     <label class="profile-button">
                         画像を選択する
-                        <input type="file" name="icon" accept="image/*" class="profile-input-file">
+                        <input id="icon-input" type="file" name="icon" accept="image/*" class="profile-input-file">
                     </label>
                     @error('icon')
                         <p class="profile-error">{{ $message }}</p>
@@ -92,3 +94,7 @@
         </form>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/profile.js') }}" defer></script>
+@endpush

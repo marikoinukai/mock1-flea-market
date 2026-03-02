@@ -124,6 +124,7 @@
         </form>
     </div>
 @endsection
+
 @push('scripts')
     <script src="{{ asset('js/sell.js') }}" defer></script>
 @endpush

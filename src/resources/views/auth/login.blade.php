@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h2>ログイン</h2>
+        <h1>ログイン</h1>
 
         <form method="POST" action="{{ route('login') }}">
             @csrf

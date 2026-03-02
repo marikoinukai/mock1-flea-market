@@ -49,19 +49,6 @@
     </header>
 
     <main class="app-main">
-
-        @if (session('warning'))
-            <div class="app-flash app-flash--warning">
-                {{ session('warning') }}
-            </div>
-        @endif
-
-        @if (session('success'))
-            <div class="app-flash app-flash--success">
-                {{ session('success') }}
-            </div>
-        @endif
-
         @yield('content')
     </main>
     @stack('scripts')

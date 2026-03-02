@@ -47,9 +47,17 @@
                                     <div class="item-card__sold">Sold</div>
                                 @endif
 
-                                @if ($item->image && $item->image->image_path)
-                                    <img src="{{ asset('storage/' . $item->image->image_path) }}" class="item-card__img"
-                                        alt="商品画像">
+                                @php
+                                    $path = $item->image->image_path ?? null;
+                                    $src = $path
+                                        ? (str_starts_with($path, 'http')
+                                            ? $path
+                                            : asset('storage/' . $path))
+                                        : null;
+                                @endphp
+
+                                @if ($src)
+                                    <img src="{{ $src }}" class="item-card__img" alt="商品画像">
                                 @else
                                     <div class="item-card__noimg">No Image</div>
                                 @endif

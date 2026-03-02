@@ -17,5 +17,7 @@ class DatabaseSeeder extends Seeder
             ItemConditionsSeeder::class,
             CategoriesSeeder::class,
         ]);
+
+        $this->call(DummyItemsSeeder::class);
     }
 }

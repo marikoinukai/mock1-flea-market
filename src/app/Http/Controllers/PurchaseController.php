@@ -27,7 +27,7 @@ class PurchaseController extends Controller
     public function store(Request $request,  Item $item)
     {
         if ($item->is_sold) {
-            return back()->with('error', 'この商品は売り切れです');
+            return back();
         }
 
         $request->validate([
@@ -57,7 +57,6 @@ class PurchaseController extends Controller
 
         session()->forget('purchase.shipping.' . $item->id);
 
-        return redirect()->route('items.index')
-            ->with('success', '購入処理（仮）が完了しました');
+        return redirect()->route('items.index');
     }
 }

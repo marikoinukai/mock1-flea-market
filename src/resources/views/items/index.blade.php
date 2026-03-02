@@ -43,12 +43,26 @@
                                         @endif
 
                                         {{-- 画像 --}}
-                                        @if ($item->image && $item->image->image_path)
+                                        @php
+                                            $path = $item->image->image_path ?? null;
+                                            $src = $path
+                                                ? (str_starts_with($path, 'http')
+                                                    ? $path
+                                                    : asset('storage/' . $path))
+                                                : null;
+                                        @endphp
+
+                                        @if ($src)
+                                            <img src="{{ $src }}" alt="商品画像" class="item-card__img">
+                                        @else
+                                            <div class="item-card__noimg">No Image</div>
+                                        @endif
+                                        {{-- @if ($item->image && $item->image->image_path)
                                             <img src="{{ asset('storage/' . $item->image->image_path) }}" alt="商品画像"
                                                 class="item-card__img">
                                         @else
                                             <div class="item-card__noimg">No Image</div>
-                                        @endif
+                                        @endif --}}
                                     </div>
 
                                     {{-- 商品名 --}}
