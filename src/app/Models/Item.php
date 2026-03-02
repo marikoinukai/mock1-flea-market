@@ -68,4 +68,10 @@ class Item extends Model
     {
         return $this->hasOne(Order::class);
     }
+
+    // 購入用
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

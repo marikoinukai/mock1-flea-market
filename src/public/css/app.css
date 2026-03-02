@@ -219,7 +219,7 @@ body {
 }
 
 .items-tab {
-  padding: 4px 0;                 
+  padding: 4px 0;
   border-bottom: 1px solid #cfcfcf;
   text-decoration: none;
   font-size: 16px;
@@ -284,7 +284,7 @@ body {
 .item-card__media {
   position: relative;
   aspect-ratio: 1 / 1;
-  background: #d9d9d9;  
+  background: #d9d9d9;
   overflow: hidden;
 }
 
@@ -632,58 +632,116 @@ body {
 }
 
 /* =========================
-   マイページ
+   マイページ（添付2枚目寄せ）
 ========================= */
-.mypage { max-width: 900px; margin: 0 auto; }
 
+/* 余白を広め */
+.mypage{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+/* 上段：アイコン / 名前 / ボタン */
 .mypage-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap: 24px;
-  padding: 18px 0;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 28px 0 16px;
+}
+
+/* 左：丸アイコン（大きめ） */
+.mypage-avatar{
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #d9d9d9;
+  flex: 0 0 auto;
+}
+
+/* 中央：ユーザー名 */
+.mypage-name{
+  font-size: 24px;
+  font-weight: 700;
+  color: #111;
+  flex: 1;
+}
+
+/* 右：プロフィール編集ボタン */
+.mypage-editBtn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 44px;
+  padding: 0 22px;
+
+  border: 2px solid #ff5555;
+  color: #ff5555;
+  background: #fff;
+  border-radius: 8px;
+
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+
+  white-space: nowrap;
+}
+
+/* タブ */
+.mypage-tabs{
+  display: flex;
+  gap: 40px;
+  align-items: flex-end;
+
+  border-bottom: 1px solid #5f5f5f;
+  padding: 14px 0;
+  margin-bottom: 18px;
+}
+
+/* aタグの標準（紫/下線）を殺して、タブ見た目にする */
+.mypage-tab{
+  text-decoration: none;
+  color: #5f5f5f;
+  font-weight: 700;
+  font-size: 16px;
+
+  padding-bottom: 10px;
+}
+
+/* visitedでも紫にしない */
+.mypage-tab:visited{
+  color: #5f5f5f;
+}
+
+/* 選択中 */
+.mypage-tab.is-active{
+  color: #ff5555;
+}
+
+/* ホバー */
+.mypage-tab:hover{
+  opacity: 0.85;
 }
 
 .mypage-avatar{
   width: 72px;
   height: 72px;
   border-radius: 50%;
+  overflow: hidden;
   background: #d9d9d9;
   flex: 0 0 auto;
 }
 
-.mypage-name{
-  font-size: 18px;
-  font-weight: 700;
-  flex: 1;
+.mypage-avatar__img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.mypage-editBtn{
-  display:inline-block;
-  border: 2px solid #ff5555;
-  color: #ff5555;
-  background: #fff;
-  padding: 8px 14px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 12px;
-}
-
-.mypage-tabs{
-  display:flex;
-  gap: 24px;
-  border-bottom: 1px solid #5f5f5f;
-  padding-bottom: 10px;
-}
-
-.mypage-tab{
-  text-decoration:none;
-  color:#5f5f5f;
-  font-weight:700;
-  font-size: 12px;
-}
-
-.mypage-tab.is-active{
-  color:#ff5555;
+.mypage-avatar__placeholder{
+  width: 100%;
+  height: 100%;
 }
