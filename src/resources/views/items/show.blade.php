@@ -1,14 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>商品詳細ページ</h1>
 
     <div class="item-detail">
 
         {{-- 左：画像エリア --}}
         <div class="item-detail__left">
-            @if ($item->image)
-                <img src="{{ asset('storage/' . $item->image->image_path) }}" alt="商品画像" class="item-image">
+            @php
+                $path = $item->image->image_path ?? null;
+                $src = $path ? (str_starts_with($path, 'http') ? $path : asset('storage/' . $path)) : null;
+            @endphp
+
+            @if ($src)
+                <img src="{{ $src }}" alt="商品画像" class="item-image">
             @else
                 <p class="item-image-empty">画像なし</p>
             @endif
@@ -32,33 +36,45 @@
 
                 {{-- いいね・コメント数 --}}
                 <div class="item-reactions">
-                    @auth
-                        @php
-                            $liked = $item->likes->contains('user_id', auth()->id());
-                        @endphp
+                    @php
+                        $liked = auth()->check() && $item->likes->contains('user_id', auth()->id());
+                    @endphp
 
+                    @auth
                         @if ($liked)
                             <form method="POST" action="{{ route('items.unlike', $item) }}">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="reaction-like">♡ {{ $item->likes->count() }}</button>
+                                <button type="submit" class="reaction-like">
+                                    <img src="{{ asset('img/heartlogo_red.png') }}" class="reaction-icon" alt="liked">
+                                    <span>{{ $item->likes->count() }}</span>
+                                </button>
                             </form>
                         @else
                             <form method="POST" action="{{ route('items.like', $item) }}">
                                 @csrf
-                                <button type="submit" class="reaction-like">♡ {{ $item->likes->count() }}</button>
+                                <button type="submit" class="reaction-like">
+                                    <img src="{{ asset('img/heartlogo_default.png') }}" class="reaction-icon" alt="like">
+                                    <span>{{ $item->likes->count() }}</span>
+                                </button>
                             </form>
                         @endif
                     @else
-                        {{-- Fortify導入したら、ここは route('login') に戻す
-    <a href="{{ route('login') }}" class="reaction-like" --}}
-
-                        <a href="/login" class="reaction-like">♡ {{ $item->likes->count() }}</a>
+                        <a href="/login" class="reaction-like">
+                            <img src="{{ asset('img/heartlogo_default.png') }}" class="reaction-icon" alt="like">
+                            <span>{{ $item->likes->count() }}</span>
+                        </a>
                     @endauth
 
-                    <div class="reaction-comment">💬 {{ $item->comments->count() }}</div>
+                    <div class="reaction-comment">
+                        <img src="{{ asset('img/bubblelogo.png') }}" class="reaction-icon" alt="comment">
+                        <span>{{ $item->comments->count() }}</span>
+                    </div>
                 </div>
 
+
+
+                {{-- 購入ボタン --}}
                 <div class="purchase-area">
                     @auth
                         <a href="{{ route('purchase.show', $item) }}" class="purchase-button">
@@ -76,14 +92,14 @@
 
             {{-- 商品について --}}
             <div class="item-section item-section--description">
-                <h2 class="item-section__title">商品説明</h2>
+                <h1 class="item-section__title">商品説明</h1>
                 <p class="item-description">
                     {{ $item->description ?? '（説明はありません）' }}
                 </p>
             </div>
 
             <div class="item-section item-section--info">
-                <h2 class="item-section__title">商品の情報</h2>
+                <h1 class="item-section__title">商品の情報</h1>
 
                 <div class="item-info">
                     <div class="item-info__row">
@@ -108,9 +124,37 @@
                 </div>
             </div>
 
-            {{-- コメント投稿 --}}
-            <h2 class="comment-title">コメント</h2>
+            {{-- コメント --}}
+            <h1 class="comment-title">コメント({{ $item->comments->count() }})</h1>
 
+            {{-- コメント一覧 --}}
+            <div class="comment-list">
+                @forelse ($item->comments as $comment)
+                    <div class="comment-item">
+                        @php $iconPath = optional($comment->user)->icon_path; @endphp
+
+                        @if ($iconPath)
+                            <img src="{{ asset('storage/' . $iconPath) }}" alt="user" class="comment-user-icon">
+                        @else
+                            <img src="{{ asset('img/default-user.png') }}" alt="user" class="comment-user-icon">
+                        @endif
+
+                        <div class="comment-body">
+                            <p class="comment-user-name">{{ $comment->user->name }}</p>
+                        </div>
+                    </div>
+                    <div class="comment-body">
+                        <p class="comment-text">{{ $comment->body }}</p>
+                    </div>
+                @empty
+                    <p class="comment-empty">コメントはまだありません</p>
+                @endforelse
+            </div>
+
+            {{-- 商品へのコメント（見本の文言） --}}
+            <p class="comment-form-label">商品へのコメント</p>
+
+            {{-- コメント投稿フォーム（ここは1回だけ） --}}
             <div class="comment-area">
                 @auth
                     <form method="POST" action="{{ route('items.comments.store', $item) }}" class="comment-form">
@@ -128,34 +172,6 @@
                     <p class="comment-login-text">コメントするにはログインが必要です</p>
                 @endauth
             </div>
-
         </div>
-
-    </div>
-
-    {{-- 下：コメント一覧 --}}
-    <div class="comment-list">
-        @if ($item->comments->isEmpty())
-            <p class="comment-empty">コメントはまだありません</p>
-        @else
-            @foreach ($item->comments as $comment)
-                <div class="comment-item">
-                    @php
-                        $iconPath = optional($comment->user)->icon_path;
-                    @endphp
-
-                    @if ($iconPath)
-                        <img src="{{ asset('storage/' . $iconPath) }}" alt="user" class="comment-user-icon">
-                    @else
-                        <img src="{{ asset('img/default-user.png') }}" alt="user" class="comment-user-icon">
-                    @endif
-
-                    <div class="comment-body">
-                        <p class="comment-user-name">{{ $comment->user->name }}</p>
-                        <p class="comment-text">{{ $comment->body }}</p>
-                    </div>
-                </div>
-            @endforeach
-        @endif
     </div>
 @endsection
