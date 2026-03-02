@@ -21,6 +21,12 @@ class PurchaseController extends Controller
 
         $user = Auth::user(); // 配送先表示用
 
+        $shipping = session("purchase.shipping.{$item->id}", [
+            'postal_code'   => $user->postal_code,
+            'address_line1' => $user->address_line1,
+            'address_line2' => $user->address_line2,
+        ]);
+
         return view('purchase.show', compact('item', 'user', 'payments'));
     }
 
@@ -36,27 +42,52 @@ class PurchaseController extends Controller
 
         $user = Auth::user();
 
-        $shipping = session('purchase.shipping.' . $item->id);
+        $shipping = session("purchase.shipping.{$item->id}", []);
 
         Order::create([
             'buyer_id' => $user->id,
-            'item_id' => $item->id,
+            'item_id'  => $item->id,
             'payment_method' => $request->payment_method,
 
-            'shipping_postal_code' =>
-            $shipping['postal_code'] ?? $user->postal_code,
-
-            'shipping_address_line1' =>
-            $shipping['address_line1'] ?? $user->address_line1,
-
-            'shipping_address_line2' =>
-            $shipping['address_line2'] ?? $user->address_line2,
+            'shipping_postal_code'   => $shipping['postal_code'] ?? $user->postal_code,
+            'shipping_address_line1' => $shipping['address_line1'] ?? $user->address_line1,
+            'shipping_address_line2' => $shipping['address_line2'] ?? $user->address_line2,
         ]);
 
         $item->update(['is_sold' => true]);
 
         session()->forget('purchase.shipping.' . $item->id);
 
-        return redirect()->route('items.index');
+        return redirect()->route('mypage', ['tab' => 'buy']);
+    }
+
+    public function editAddress(Item $item)
+    {
+        $user = auth()->user();
+
+        // 住所変更ページ表示
+        return view('purchase.address', compact('item', 'user'));
+    }
+
+    public function updateAddress(Request $request, Item $item)
+    {
+        $request->validate([
+            'postal_code'    => ['required', 'regex:/^\d{3}-\d{4}$/'],
+            'address_line1'  => ['required', 'string', 'max:255'],
+            'address_line2'  => ['nullable', 'string', 'max:255'],
+        ]);
+
+        // 購入フロー用に「セッション」に一時保存（ユーザー住所は更新しない想定）
+        session([
+            "purchase.shipping.{$item->id}" => [
+                'postal_code'   => $request->postal_code,
+                'address_line1' => $request->address_line1,
+                'address_line2' => $request->address_line2,
+            ]
+        ]);
+
+        return redirect()
+            ->route('purchase.show', $item)
+            ->with('success', '配送先を更新しました');
     }
 }

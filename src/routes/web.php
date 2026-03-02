@@ -6,6 +6,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AddressController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -42,6 +43,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
     Route::put('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    // 住所変更
+    Route::get('/purchase/{item}/address', [AddressController::class, 'edit'])->name('purchase.address.edit');
+    Route::put('/purchase/{item}/address', [AddressController::class, 'update'])->name('purchase.address.update');
 });
 
 Route::middleware(['auth', 'profile.completed'])->group(function () {

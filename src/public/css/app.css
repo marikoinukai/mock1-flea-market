@@ -1057,3 +1057,171 @@ body {
   font-size: 13px;
   line-height: 1.6;
 }
+
+/* =========================
+   Purchase page
+========================= */
+
+.purchase-page {
+  padding: 24px 0 60px;
+}
+
+.purchase-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: 1fr 360px; /* 左：可変 / 右：固定 */
+  gap: 48px;
+  align-items: start;
+}
+
+/* 左カラム */
+.purchase-left {
+  min-width: 0;
+}
+
+.purchase-item {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.purchase-item__img {
+  width: 120px;
+  aspect-ratio: 1 / 1;
+  background: #d9d9d9;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.purchase-item__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.purchase-item__title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.purchase-item__price {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.purchase-rule {
+  height: 1px;
+  background: #cfcfcf;
+  margin: 18px 0;
+}
+
+/* セクション */
+.purchase-section__head {
+  margin-bottom: 10px;
+}
+
+.purchase-section__head--between {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.purchase-section__title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.purchase-section__body {
+  padding: 0;
+}
+
+.purchase-link {
+  font-size: 13px;
+  color: #2563eb;
+  text-decoration: none;
+}
+.purchase-link:hover {
+  text-decoration: underline;
+}
+
+/* select を見本っぽく */
+.purchase-section select {
+  width: 240px;
+  height: 36px;
+  border: 1px solid #cfcfcf;
+  border-radius: 4px;
+  padding: 0 10px;
+  background: #fff;
+}
+
+/* 右カラム */
+.purchase-right {
+  position: sticky;
+  top: 16px;
+}
+
+.purchase-summary {
+  border: 1px solid #cfcfcf;
+  background: #fff;
+}
+
+.purchase-summary__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 16px 18px;
+  border-bottom: 1px solid #cfcfcf;
+}
+
+.purchase-summary__row:last-child {
+  border-bottom: none;
+}
+
+.purchase-summary__label {
+  font-size: 13px;
+  color: #111;
+}
+
+.purchase-summary__value {
+  text-align: right;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* 購入ボタン */
+.purchase-btn {
+  width: 100%;
+  margin-top: 18px;
+  height: 48px;
+
+  border: none;
+  border-radius: 4px;
+
+  background: #ff5555;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.purchase-btn:hover {
+  opacity: 0.92;
+}
+
+/* レスポンシブ */
+@media (max-width: 900px) {
+  .purchase-wrap {
+    grid-template-columns: 1fr;
+  }
+  .purchase-right {
+    position: static;
+  }
+}
