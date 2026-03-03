@@ -1,33 +1,55 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h1>会員登録</h1>
+    <div class="auth-page">
+        <div class="auth-card">
+            <h1 class="auth-title">会員登録</h1>
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
+            <form method="POST" action="{{ route('register') }}" class="auth-form">
+                @csrf
 
-            <div>
-                <label>名前</label><br>
-                <input type="text" name="name" required>
-            </div>
+                {{-- ユーザー名 --}}
+                <div class="auth-field">
+                    <label for="name" class="auth-label">ユーザー名</label>
+                    <input id="name" type="text" name="name" value="{{ old('name') }}"
+                        class="ui-input auth-input" required autofocus>
+                    @error('name')
+                        <p class="auth-error">{{ $message }}</p>
+                    @enderror
+                </div>
 
-            <div style="margin-top:10px;">
-                <label>Email</label><br>
-                <input type="email" name="email" required>
-            </div>
+                {{-- メールアドレス --}}
+                <div class="auth-field">
+                    <label for="email" class="auth-label">メールアドレス</label>
+                    <input id="email" type="email" name="email" value="{{ old('email') }}"
+                        class="ui-input auth-input" required>
+                    @error('email')
+                        <p class="auth-error">{{ $message }}</p>
+                    @enderror
+                </div>
 
-            <div style="margin-top:10px;">
-                <label>Password</label><br>
-                <input type="password" name="password" required>
-            </div>
+                {{-- パスワード --}}
+                <div class="auth-field">
+                    <label for="password" class="auth-label">パスワード</label>
+                    <input id="password" type="password" name="password" class="ui-input auth-input" required>
+                    @error('password')
+                        <p class="auth-error">{{ $message }}</p>
+                    @enderror
+                </div>
 
-            <div style="margin-top:10px;">
-                <label>Password（確認）</label><br>
-                <input type="password" name="password_confirmation" required>
-            </div>
+                {{-- 確認用パスワード --}}
+                <div class="auth-field">
+                    <label for="password_confirmation" class="auth-label">確認用パスワード</label>
+                    <input id="password_confirmation" type="password" name="password_confirmation"
+                        class="ui-input auth-input" required>
+                </div>
 
-            <button style="margin-top:14px;">登録</button>
-        </form>
+                <button type="submit" class="auth-submit">登録する</button>
+
+                <div class="auth-links">
+                    <a href="{{ route('login') }}" class="auth-link">ログインはこちら</a>
+                </div>
+            </form>
+        </div>
     </div>
 @endsection

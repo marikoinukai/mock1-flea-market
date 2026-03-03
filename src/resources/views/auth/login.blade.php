@@ -1,30 +1,34 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h1>ログイン</h1>
+    <div class="auth-page">
+        <div class="auth-container">
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
+            <h1 class="auth-title">ログイン</h1>
 
-            <div>
-                <label>Email</label><br>
-                <input type="email" name="email" required autofocus>
+            <form method="POST" action="{{ route('login') }}" class="auth-form">
+                @csrf
+
+                <div class="auth-field">
+                    <label for="email" class="auth-label">メールアドレス</label>
+                    <input type="email" id="email" name="email" class="auth-input" required autofocus>
+                </div>
+
+                <div class="auth-field">
+                    <label for="password" class="auth-label">パスワード</label>
+                    <input type="password" id="password" name="password" class="auth-input" required>
+                </div>
+
+                <button type="submit" class="auth-submit">
+                    ログインする
+                </button>
+
+            </form>
+
+            <div class="auth-register-link">
+                <a href="{{ route('register') }}">会員登録はこちら</a>
             </div>
 
-            <div style="margin-top:10px;">
-                <label>Password</label><br>
-                <input type="password" name="password" required>
-            </div>
-
-            {{-- <div style="margin-top:10px;">
-                <label>
-                    <input type="checkbox" name="remember">
-                    ログイン状態を保持
-                </label>
-            </div> --}}
-
-            <button style="margin-top:14px;">ログイン</button>
-        </form>
+        </div>
     </div>
 @endsection

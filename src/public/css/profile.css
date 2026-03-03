@@ -61,12 +61,14 @@
   align-items: center;
   justify-content: center;
   padding: 10px 14px;
-  border: 1px solid #ccc;
   border-radius: 8px;
   background: #fff;
   cursor: pointer;
   font-size: 14px;
   width: fit-content;
+  border: 2px solid #ff5555;
+  color: #ff5555;
+  font-weight: 700;
 }
 
 /* 本物のfile inputは隠す */
@@ -132,3 +134,5 @@
   color: #666;
   margin: 0;
 }
+
+.is-hidden { display: none ; }

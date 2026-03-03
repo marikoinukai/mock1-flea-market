@@ -81,12 +81,10 @@
                     </div>
 
                     <div class="purchase-summary__row">
-                        <p>
-                            支払い方法：
-                            <span id="js-payment-label">
-                                {{ $payments[old('payment_method', request('payment_method'))] ?? '未選択' }}
-                            </span>
-                        </p>
+                        <div class="purchase-summary__label">支払い方法</div>
+                        <div class="purchase-summary__value" id="js-payment-label">
+                            {{ $payments[old('payment_method', request('payment_method'))] ?? '未選択' }}
+                        </div>
                     </div>
                 </div>
 
@@ -95,10 +93,9 @@
                     @csrf
                     <input type="hidden" name="payment_method" id="js-payment-hidden"
                         value="{{ old('payment_method', request('payment_method')) }}">
-                    <button type="submit" class="purchase-submit">購入する</button>
+                    <button type="submit" class="purchase-btn">購入する</button>
                 </form>
             </aside>
-
         </div>
     </div>
 @endsection

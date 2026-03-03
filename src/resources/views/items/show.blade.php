@@ -76,18 +76,22 @@
 
                 {{-- 購入ボタン --}}
                 <div class="purchase-area">
-                    @auth
-                        <a href="{{ route('purchase.show', $item) }}" class="purchase-button">
-                            購入手続きへ
-                        </a>
+                    @if ($item->is_sold)
+                        <button class="purchase-button purchase-button--sold" disabled>
+                            売り切れ
+                        </button>
                     @else
-                        <a href="/login" class="purchase-button">
-                            購入手続きへ
-                        </a>
-                        <p class="purchase-login-note">購入するにはログインが必要です</p>
-                    @endauth
+                        @auth
+                            <a href="{{ route('purchase.show', $item) }}" class="purchase-button">
+                                購入手続きへ
+                            </a>
+                        @else
+                            <a href="/login" class="purchase-button">
+                                購入手続きへ
+                            </a>
+                        @endauth
+                    @endif
                 </div>
-
             </div>
 
             {{-- 商品について --}}
