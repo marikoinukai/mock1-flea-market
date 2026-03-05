@@ -1260,9 +1260,6 @@ body {
   max-width: 680px;
   margin: 0 auto;
   box-sizing: border-box;
-  border: 1px solid #eee;
-  border-radius: 12px;
-  background: #fff;
   padding: 26px 24px;
 }
 
@@ -1342,18 +1339,13 @@ body {
   margin: 0 0 28px;
 }
 
-/* ★これが無いと横に広がります */
 .address-card{
   max-width: 680px;
   margin: 0 auto;
   box-sizing: border-box;
-  border: 1px solid #eee;
-  border-radius: 12px;
-  background: #fff;
   padding: 26px 24px;
 }
 
-/* 中身（フォーム）をさらに少し細くして見本寄せ */
 .address-form{
   max-width: 560px;
   margin: 0 auto;
