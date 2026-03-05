@@ -6,6 +6,7 @@ use App\Models\Item;
 use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PurchaseController extends Controller
 {
@@ -27,34 +28,52 @@ class PurchaseController extends Controller
             'address_line2' => $user->address_line2,
         ]);
 
-        return view('purchase.show', compact('item', 'user', 'payments'));
+        return view('purchase.show', compact('item', 'user', 'payments', 'shipping'));
     }
 
-    public function store(Request $request,  Item $item)
+    public function store(Request $request, Item $item)
     {
-        if ($item->is_sold) {
-            return back();
-        }
-
         $request->validate([
             'payment_method' => ['required', 'in:convenience,card'],
         ]);
 
         $user = Auth::user();
-
         $shipping = session("purchase.shipping.{$item->id}", []);
 
-        Order::create([
-            'buyer_id' => $user->id,
-            'item_id'  => $item->id,
-            'payment_method' => $request->payment_method,
+        try {
 
-            'shipping_postal_code'   => $shipping['postal_code'] ?? $user->postal_code,
-            'shipping_address_line1' => $shipping['address_line1'] ?? $user->address_line1,
-            'shipping_address_line2' => $shipping['address_line2'] ?? $user->address_line2,
-        ]);
+            DB::transaction(function () use ($item, $user, $request, $shipping) {
 
-        $item->update(['is_sold' => true]);
+                // ★商品をロック
+                $lockedItem = Item::where('id', $item->id)
+                    ->lockForUpdate()
+                    ->first();
+
+                // 売り切れチェック
+                if ($lockedItem->is_sold) {
+                    throw new \RuntimeException('この商品は売り切れです');
+                }
+
+                // 注文作成
+                Order::create([
+                    'buyer_id' => $user->id,
+                    'item_id'  => $lockedItem->id,
+                    'payment_method' => $request->payment_method,
+
+                    'shipping_postal_code' => $shipping['postal_code'] ?? $user->postal_code,
+                    'shipping_address_line1' => $shipping['address_line1'] ?? $user->address_line1,
+                    'shipping_address_line2' => $shipping['address_line2'] ?? $user->address_line2,
+                ]);
+
+                // 売却済みに更新
+                $lockedItem->update([
+                    'is_sold' => true
+                ]);
+            });
+        } catch (\RuntimeException $e) {
+
+            return back()->with('error', $e->getMessage());
+        }
 
         session()->forget('purchase.shipping.' . $item->id);
 

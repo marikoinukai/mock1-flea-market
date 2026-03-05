@@ -1120,7 +1120,7 @@ body {
 .purchase-item__price {
   font-size: 18px;
   font-weight: 700;
-　margin: 0;
+  margin: 0;
 }
 
 .purchase-rule {
@@ -1249,82 +1249,9 @@ body {
 }
 
 /* ======================
-   Login Page
+   auth pages
 ====================== */
 
-.auth-page{
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 40px 16px;
-}
-
-.auth-container{
-  max-width: 560px;
-  margin: 0 auto;
-}
-
-.auth-title{
-  text-align: center;
-  font-size: 28px;
-  font-weight: 700;
-  margin: 0 0 24px;
-}
-
-.auth-form{
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.auth-field{
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.auth-label{
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.auth-input{
-  width: 100%;
-  height: 44px;
-  padding: 0 12px;
-  border: 1px solid #999;
-  border-radius: 4px;
-  font-size: 16px;
-  box-sizing: border-box;
-}
-
-.auth-submit{
-  margin-top: 10px;
-  height: 56px;
-  border: none;
-  border-radius: 6px;
-  background: #ff5555;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.auth-register-link{
-  text-align: center;
-  margin-top: 16px;
-}
-
-.auth-register-link a{
-  color: #1d4ed8;
-  text-decoration: none;
-  font-weight: 700;
-}
-
-.auth-register-link a:hover{
-  text-decoration: underline;
-}
-
-/* auth pages */
 .auth-page{
   padding: 48px 16px;
 }
@@ -1399,3 +1326,78 @@ body {
 
 /* インライン禁止の代わり */
 .is-hidden{ display:none; }
+
+/* ======================
+   Address page（住所変更）
+====================== */
+
+.address-page{
+  padding: 48px 16px;
+}
+
+.address-title{
+  text-align:center;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 28px;
+}
+
+/* ★これが無いと横に広がります */
+.address-card{
+  max-width: 680px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  background: #fff;
+  padding: 26px 24px;
+}
+
+/* 中身（フォーム）をさらに少し細くして見本寄せ */
+.address-form{
+  max-width: 560px;
+  margin: 0 auto;
+  display:flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.address-field{
+  display:flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.address-label{
+  font-weight: 700;
+}
+
+.address-input{
+  width: 100%;
+  height: 45px;
+  padding: 0 12px;
+  box-sizing: border-box;
+
+  border-radius: 4px;
+  border: 1px solid #5F5F5F;
+  background: #fff;
+}
+
+.address-submit{
+  margin-top: 18px;
+  background: #ff5555;
+  width: 100%;
+  height: 56px;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.address-error{
+  color:#d00;
+  font-size: 13px;
+  margin: 0;
+}

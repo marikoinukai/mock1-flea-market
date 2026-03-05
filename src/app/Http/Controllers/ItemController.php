@@ -77,32 +77,41 @@ class ItemController extends Controller
         $user = auth()->user();
         $validated = $request->validated();
 
-        DB::transaction(function () use ($user, $validated, $request) {
+        // ① 先に画像保存
+        $imageFile = $request->file('image');
+        $path = $imageFile->store('items', 'public');
 
-            // ① item作成
-            $item = Item::create([
-                'seller_id' => $user->id,
-                'title' => $validated['title'],
-                'brand_name' => $validated['brand_name'] ?? null,
-                'description' => $validated['description'],
-                'price' => $validated['price'],
-                'item_condition_id' => $validated['item_condition_id'],
-            ]);
+        try {
 
-            // ② 画像保存（storage）
-            $imageFile = $request->file('image'); // requiredなので基本nullにならない
-            $path = $imageFile->store('items', 'public');
+            DB::transaction(function () use ($user, $validated, $path) {
 
-            ItemImage::create([
-                'item_id' => $item->id,
-                'image_path' => $path,
-            ]);
+                // item作成
+                $item = Item::create([
+                    'seller_id' => $user->id,
+                    'title' => $validated['title'],
+                    'brand_name' => $validated['brand_name'] ?? null,
+                    'description' => $validated['description'],
+                    'price' => $validated['price'],
+                    'item_condition_id' => $validated['item_condition_id'],
+                ]);
 
-            // ③ カテゴリ複数保存
-            $item->categories()->sync($validated['category_ids']);
-        });
+                // 画像DB保存
+                ItemImage::create([
+                    'item_id' => $item->id,
+                    'image_path' => $path,
+                ]);
 
-        return redirect()
-            ->route('items.index');
+                // カテゴリ複数保存
+                $item->categories()->sync($validated['category_ids']);
+            });
+        } catch (\Throwable $e) {
+
+            // ★DB失敗時は保存済み画像削除
+            Storage::disk('public')->delete($path);
+
+            throw $e;
+        }
+
+        return redirect()->route('items.index');
     }
 }
