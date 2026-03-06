@@ -23,6 +23,8 @@ class AddressController extends Controller
 
     public function update(AddressRequest $request, Item $item)
     {
+        $validated = $request->validated();
+
         session()->put("purchase.shipping.{$item->id}", [
             'postal_code'   => $request->postal_code,
             'address_line1' => $request->address_line1,

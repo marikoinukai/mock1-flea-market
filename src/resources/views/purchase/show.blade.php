@@ -44,6 +44,9 @@
                             </option>
                         @endforeach
                     </select>
+                    @error('payment_method')
+                        <p class="ui-error">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="purchase-rule"></div>

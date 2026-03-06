@@ -6,36 +6,28 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class AddressRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'postal_code'   => ['required', 'regex:/^\d{3}-\d{4}$/'],
-            'address_line1' => ['required', 'max:255'],
-            'address_line2' => ['nullable', 'max:255'],
+            'postal_code' => ['required', 'regex:/^\d{3}-\d{4}$/'],
+            'address_line1' => ['required', 'string', 'max:255'],
+            'address_line2' => ['nullable', 'string', 'max:255'],
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
-            'postal_code.required' => '郵便番号は必須です',
-            'postal_code.regex'    => '郵便番号は「123-4567」の形式で入力してください',
-            'address_line1.required' => '住所は必須です',
+            'postal_code.required' => '郵便番号は必須です。',
+            'postal_code.regex' => '郵便番号は「123-4567」の形式で入力してください。',
+            'address_line1.required' => '住所は必須です。',
+            'address_line1.max' => '住所は255文字以内で入力してください。',
+            'address_line2.max' => '建物名は255文字以内で入力してください。',
         ];
     }
 }

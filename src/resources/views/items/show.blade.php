@@ -6,16 +6,22 @@
 
         {{-- 左：画像エリア --}}
         <div class="item-detail__left">
-            @php
-                $path = $item->image->image_path ?? null;
-                $src = $path ? (str_starts_with($path, 'http') ? $path : asset('storage/' . $path)) : null;
-            @endphp
+            <div class="item-detail__media">
+                @php
+                    $path = $item->image->image_path ?? null;
+                    $src = $path ? (str_starts_with($path, 'http') ? $path : asset('storage/' . $path)) : null;
+                @endphp
 
-            @if ($src)
-                <img src="{{ $src }}" alt="商品画像" class="item-image">
-            @else
-                <p class="item-image-empty">画像なし</p>
-            @endif
+                @if ($src)
+                    <img src="{{ $src }}" alt="商品画像" class="item-image">
+                @else
+                    <p class="item-image-empty">画像なし</p>
+                @endif
+
+                @if ($item->is_sold)
+                    <div class="item-card__sold">SOLD</div>
+                @endif
+            </div>
         </div>
 
         {{-- 右：情報エリア --}}

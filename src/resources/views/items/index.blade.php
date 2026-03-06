@@ -57,12 +57,7 @@
                                         @else
                                             <div class="item-card__noimg">No Image</div>
                                         @endif
-                                        {{-- @if ($item->image && $item->image->image_path)
-                                            <img src="{{ asset('storage/' . $item->image->image_path) }}" alt="商品画像"
-                                                class="item-card__img">
-                                        @else
-                                            <div class="item-card__noimg">No Image</div>
-                                        @endif --}}
+
                                     </div>
 
                                     {{-- 商品名 --}}
@@ -79,7 +74,7 @@
 
                     {{-- ページネーション --}}
                     <div class="items-pagination">
-                        {{ $items->links() }}
+                        {{ $items->links('pagination.simple') }}
                     </div>
                 @endif
             @endif

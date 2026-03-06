@@ -281,18 +281,17 @@ body {
   position: absolute;
   top: 10px;
   left: 10px;
-
-  background: #111;
+  background: #ff5555;
   color: #fff;
-
   padding: 4px 10px;
   font-size: 12px;
   font-weight: 700;
-
   border-radius: 999px;
   letter-spacing: 0.04em;
-
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+
+  /* SOLDバッジが画像の上に必ず来るようにする */
+  z-index: 2;
 }
 
 .item-card__img {
@@ -301,6 +300,22 @@ body {
   object-fit: cover;
   display: block;
   transition: transform 0.2s ease;
+
+  /* 画像はSOLDバッジの下 */
+  position: relative;
+  z-index: 1;
+}
+
+/* 詳細画像の上にSOLDを重ねる */
+.item-detail__media{
+  position: relative;
+}
+
+.item-detail__media .item-card__sold{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
 }
 
 .item-card__noimg {
@@ -417,7 +432,7 @@ body {
   font-size: 24px;
 }
 
-.sell-form .ui-error{
+.ui-error{
   color: #d00;
   font-size: 13px;
   margin-top: 6px;
@@ -621,10 +636,10 @@ body {
 }
 
 /* =========================
-   マイページ（添付2枚目寄せ）
+   マイページ
 ========================= */
 
-/* 余白を広め */
+/* 余白 */
 .mypage{
   max-width: 1200px;
   margin: 0 auto;
@@ -1392,4 +1407,50 @@ body {
   color:#d00;
   font-size: 13px;
   margin: 0;
+}
+
+/* =========================
+   Pagination
+========================= */
+.pager{
+  display:flex;
+  justify-content:center;
+  margin: 24px 0 10px;
+}
+
+.pager__list{
+  list-style:none;
+  display:flex;
+  gap:8px;
+  padding:0;
+  margin:0;
+  align-items:center;
+}
+
+.pager__btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:36px;
+  height:36px;
+  padding:0 10px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  background:#fff;
+  color:#111;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:700;
+  line-height:1;
+}
+
+.pager__item.is-active .pager__btn{
+  background:#ff5555;
+  border-color:#ff5555;
+  color:#fff;
+}
+
+.pager__item.is-disabled .pager__btn{
+  opacity:.4;
+  cursor:not-allowed;
 }
