@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Password;
 
 class RegisterRequest extends FormRequest
 {
@@ -17,23 +16,26 @@ class RegisterRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:20'],
             'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string', 'min:8'],
-            'password_confirmation' => ['required', 'string', 'min:8', 'same:password'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password_confirmation' => ['required', 'string', 'min:8'],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => 'ユーザー名は必須です。',
+            'name.required' => 'ユーザー名を入力してください。',
             'name.max' => 'ユーザー名は20文字以内で入力してください。',
-            'email.required' => 'メールアドレスは必須です。',
-            'email.email' => 'メールアドレスの形式が正しくありません。',
-            'password.required' => 'パスワードは必須です。',
+
+            'email.required' => 'メールアドレスを入力してください。',
+            'email.email' => 'メールアドレスの形式で入力してください。',
+
+            'password.required' => 'パスワードを入力してください。',
             'password.min' => 'パスワードは8文字以上で入力してください。',
-            'password_confirmation.required' => '確認用パスワードは必須です。',
+            'password.confirmed' => 'パスワードと一致しません。',
+
+            'password_confirmation.required' => '確認用パスワードを入力してください。',
             'password_confirmation.min' => '確認用パスワードは8文字以上で入力してください。',
-            'password_confirmation.same' => '確認用パスワードが一致しません。',
         ];
     }
 }
