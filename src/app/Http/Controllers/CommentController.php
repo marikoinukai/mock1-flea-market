@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\CommentRequest;
 
 use App\Models\Item;
 use App\Models\Comment;
@@ -18,7 +18,7 @@ class CommentController extends Controller
         Comment::create([
             'user_id' => Auth::id(),
             'item_id' => $item->id,
-            'body' => $request->input('body'),
+            'body' => $validated['body'],
         ]);
 
         return back();
