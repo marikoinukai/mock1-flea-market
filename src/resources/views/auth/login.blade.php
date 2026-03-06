@@ -6,17 +6,23 @@
 
             <h1 class="auth-title">ログイン</h1>
 
-            <form method="POST" action="{{ route('login') }}" class="auth-form">
+            <form method="POST" action="{{ route('login') }}" class="auth-form" novalidate>
                 @csrf
 
                 <div class="auth-field">
                     <label for="email" class="auth-label">メールアドレス</label>
-                    <input type="email" id="email" name="email" class="auth-input" required autofocus>
+                    <input type="email" id="email" name="email" class="auth-input" autofocus>
+                    @error('email')
+                        <p class="ui-error">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="auth-field">
                     <label for="password" class="auth-label">パスワード</label>
-                    <input type="password" id="password" name="password" class="auth-input" required>
+                    <input type="password" id="password" name="password" class="auth-input">
+                    @error('password')
+                        <p class="ui-error">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <button type="submit" class="auth-submit">
