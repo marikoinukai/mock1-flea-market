@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\PurchaseRequest;
+use App\Http\Requests\AddressRequest;
 
 class PurchaseController extends Controller
 {
@@ -91,24 +92,24 @@ class PurchaseController extends Controller
     {
         $user = auth()->user();
 
-        // 住所変更ページ表示
-        return view('purchase.address', compact('item', 'user'));
-    }
-
-    public function updateAddress(Request $request, Item $item)
-    {
-        $request->validate([
-            'postal_code'    => ['required', 'regex:/^\d{3}-\d{4}$/'],
-            'address_line1'  => ['required', 'string', 'max:255'],
-            'address_line2'  => ['nullable', 'string', 'max:255'],
+        $shipping = session("purchase.shipping.{$item->id}", [
+            'postal_code' => $user->postal_code,
+            'address_line1' => $user->address_line1,
+            'address_line2' => $user->address_line2,
         ]);
 
-        // 購入フロー用に「セッション」に一時保存（ユーザー住所は更新しない想定）
+        return view('purchase.address', compact('item', 'user', 'shipping'));
+    }
+
+    public function updateAddress(AddressRequest $request, Item $item)
+    {
+        $validated = $request->validated();
+
         session([
             "purchase.shipping.{$item->id}" => [
-                'postal_code'   => $request->postal_code,
-                'address_line1' => $request->address_line1,
-                'address_line2' => $request->address_line2,
+                'postal_code' => $validated['postal_code'],
+                'address_line1' => $validated['address_line1'],
+                'address_line2' => $validated['address_line2'] ?? '',
             ]
         ]);
 

@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CommentRequest;
-
 use App\Models\Item;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;

@@ -1031,6 +1031,8 @@ body {
   padding: 10px 12px;
   font-size: 13px;
   line-height: 1.6;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 /* コメント一覧を右カラム内で整える */
@@ -1175,6 +1177,7 @@ body {
 .purchase-section__body p{
   margin: 0 0 8px;
   font-size: 14px;
+  word-break: break-word;
 }
 
 .purchase-link {

@@ -43,6 +43,7 @@
                                 {{ $label }}
                             </option>
                         @endforeach
+
                     </select>
                     @error('payment_method')
                         <p class="ui-error">{{ $message }}</p>
@@ -64,11 +65,12 @@
 
 
                     <div class="purchase-section__body">
-                        <p>〒 {{ $shipping['postal_code'] ?? $user->postal_code }}</p>
-                        <p>
-                            {{ $shipping['address_line1'] ?? $user->address_line1 }}
-                            {{ $shipping['address_line2'] ?? ($user->address_line2 ?? '') }}
-                        </p>
+                        <p>〒 {{ $shipping['postal_code'] }}</p>
+                        <p>{{ $shipping['address_line1'] }}</p>
+
+                        @if ($shipping['address_line2'] !== '')
+                            <p>{{ $shipping['address_line2'] }}</p>
+                        @endif
                     </div>
                 </section>
 
