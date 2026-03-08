@@ -9,9 +9,7 @@ use App\Models\Category;
 use App\Models\ItemCondition;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
-
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller

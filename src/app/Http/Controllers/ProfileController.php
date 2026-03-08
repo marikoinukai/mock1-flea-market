@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
 use App\Models\Item;
-use App\Models\Order;
 
 class ProfileController extends Controller
 {
