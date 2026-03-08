@@ -4,6 +4,13 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * 会員登録のバリデーション定義。
+ * 本アプリでは Laravel Fortify を使用しているため、
+ * 実際の会員登録バリデーションは app/Actions/Fortify/CreateNewUser.php で実行される。
+ * 課題のバリデーション仕様整理のため本クラスを保持している。
+ */
+
 class RegisterRequest extends FormRequest
 {
     public function authorize(): bool
@@ -32,7 +39,7 @@ class RegisterRequest extends FormRequest
 
             'password.required' => 'パスワードを入力してください。',
             'password.min' => 'パスワードは8文字以上で入力してください。',
-            'password.confirmed' => 'パスワードと一致しません。',
+            'password.confirmed' => '確認用パスワードと一致しません。',
 
             'password_confirmation.required' => '確認用パスワードを入力してください。',
             'password_confirmation.min' => '確認用パスワードは8文字以上で入力してください。',

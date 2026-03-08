@@ -11,7 +11,8 @@
 
                 <div class="auth-field">
                     <label for="email" class="auth-label">メールアドレス</label>
-                    <input type="email" id="email" name="email" class="auth-input" autofocus>
+                    <input type="email" id="email" name="email" value="{{ old('email') }}" class="auth-input"
+                        autofocus>
                     @error('email')
                         <p class="ui-error">{{ $message }}</p>
                     @enderror
