@@ -25,13 +25,13 @@ class ExhibitionRequest extends FormRequest
     {
         return [
             'image' => ['required', 'file', 'mimes:png,jpeg'],
-            'title' => ['required', 'max:255'],
-            'description' => ['required', 'max:255'],
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
             'category_ids' => ['required', 'array', 'min:1'],
-            // 'category_ids.*' => ['exists:categories,id'],
+            'category_ids.*' => ['exists:categories,id'],
             'item_condition_id' => ['required', 'exists:item_conditions,id'],
             'price' => ['required', 'integer', 'min:0'],
-            'brand_name' => ['nullable', 'max:255'],
+            'brand_name' => ['nullable', 'string', 'max:255'],
         ];
     }
 
@@ -39,9 +39,7 @@ class ExhibitionRequest extends FormRequest
     {
         return [
             'image.required' => '商品画像を選択してください。',
-            'image.image' => '商品画像は画像ファイルを選択してください。',
             'image.mimes' => '商品画像はjpegまたはpng形式を選択してください。',
-            'image.max' => '商品画像は2MB以内でアップロードしてください。',
 
             'title.required' => '商品名を入力してください。',
             'title.max' => '商品名は255文字以内で入力してください。',
