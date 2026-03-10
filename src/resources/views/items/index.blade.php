@@ -73,9 +73,9 @@
                     </div>
 
                     {{-- ページネーション --}}
-                    <div class="items-pagination">
+                    {{-- <div class="items-pagination">
                         {{ $items->links('pagination.simple') }}
-                    </div>
+                    </div> --}}
                 @endif
             @endif
 

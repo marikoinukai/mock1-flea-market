@@ -48,9 +48,9 @@ class ItemController extends Controller
         }
 
         // 新着順 + ページング（tab/keyword維持）
-        $items = $query->orderByDesc('created_at')
-            ->paginate(12)
-            ->withQueryString();
+        $items = $query->orderByDesc('created_at')->get();
+        // ->paginate(12)
+        // ->withQueryString();
 
         return view('items.index', compact('items', 'tab', 'keyword'));
     }
