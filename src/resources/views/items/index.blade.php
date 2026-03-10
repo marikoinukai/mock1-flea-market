@@ -26,7 +26,7 @@
                 <p class="items-muted">マイリストはログイン時のみ表示されます。</p>
             @else
                 {{-- 件数ゼロ --}}
-                @if ($items instanceof \Illuminate\Support\Collection || $items->isEmpty())
+                @if ($items->isEmpty())
                     <p class="items-empty">表示する商品がありません。</p>
                 @else
                     {{-- 一覧（4列グリッド） --}}
@@ -71,11 +71,6 @@
                             </a>
                         @endforeach
                     </div>
-
-                    {{-- ページネーション --}}
-                    {{-- <div class="items-pagination">
-                        {{ $items->links('pagination.simple') }}
-                    </div> --}}
                 @endif
             @endif
 
