@@ -49,9 +49,9 @@ class FortifyServiceProvider extends ServiceProvider
                 'email' => ['required', 'email'],
                 'password' => ['required'],
             ], [
-                'email.required' => 'メールアドレスを入力してください。',
-                'email.email' => 'メールアドレスの形式で入力してください。',
-                'password.required' => 'パスワードを入力してください。',
+                'email.required' => 'メールアドレスを入力してください',
+                'email.email' => 'メールアドレスの形式で入力してください',
+                'password.required' => 'パスワードを入力してください',
             ])->validate();
 
             if (Auth::attempt([

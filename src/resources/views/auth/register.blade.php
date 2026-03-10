@@ -45,6 +45,7 @@
                     @error('password_confirmation')
                         <p class="auth-error">{{ $message }}</p>
                     @enderror
+
                 </div>
 
                 <button type="submit" class="auth-submit">登録する</button>

@@ -19,7 +19,7 @@
                 @endif
 
                 @if ($item->is_sold)
-                    <div class="item-card__sold">SOLD</div>
+                    <div class="item-card__sold">Sold</div>
                 @endif
             </div>
         </div>

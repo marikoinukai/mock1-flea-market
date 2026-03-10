@@ -38,27 +38,27 @@ class ExhibitionRequest extends FormRequest
     public function messages()
     {
         return [
-            'image.required' => '商品画像を選択してください。',
-            'image.mimes' => '商品画像はjpegまたはpng形式を選択してください。',
+            'image.required' => '商品画像を選択してください',
+            'image.mimes' => '商品画像はjpegまたはpng形式を選択してください',
 
-            'title.required' => '商品名を入力してください。',
-            'title.max' => '商品名は255文字以内で入力してください。',
+            'title.required' => '商品名を入力してください',
+            'title.max' => '商品名は255文字以内で入力してください',
 
-            'description.required' => '商品説明を入力してください。',
-            'description.max' => '商品説明は255文字以内で入力してください。',
+            'description.required' => '商品説明を入力してください',
+            'description.max' => '商品説明は255文字以内で入力してください',
 
-            'category_ids.required' => 'カテゴリーを選択してください。',
-            'category_ids.min' => 'カテゴリーを1つ以上選択してください。',
-            'category_ids.*.exists' => '選択したカテゴリーが不正です。',
+            'category_ids.required' => 'カテゴリーを選択してください',
+            'category_ids.min' => 'カテゴリーを1つ以上選択してください',
+            'category_ids.*.exists' => '選択したカテゴリーが不正です',
 
-            'item_condition_id.required' => '商品の状態を選択してください。',
-            'item_condition_id.exists' => '選択した商品の状態が不正です。',
+            'item_condition_id.required' => '商品の状態を選択してください',
+            'item_condition_id.exists' => '選択した商品の状態が不正です',
 
-            'price.required' => '販売価格を入力してください。',
-            'price.integer' => '販売価格は整数で入力してください。',
-            'price.min' => '販売価格は0円以上で入力してください。',
+            'price.required' => '販売価格を入力してください',
+            'price.integer' => '販売価格は整数で入力してください',
+            'price.min' => '販売価格は0円以上で入力してください',
 
-            'brand_name.max' => 'ブランド名は255文字以内で入力してください。',
+            'brand_name.max' => 'ブランド名は255文字以内で入力してください',
         ];
     }
 }
