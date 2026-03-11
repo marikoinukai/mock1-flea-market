@@ -45,15 +45,15 @@
                     @error('password_confirmation')
                         <p class="auth-error">{{ $message }}</p>
                     @enderror
-
                 </div>
 
-                <button type="submit" class="auth-submit">登録する</button>
+                <button type="submit" class="auth-submit">登録する</button> 
 
-                <div class="auth-links">
+            </form>
+            
+            <div class="auth-links">
                     <a href="{{ route('login') }}" class="auth-link">ログインはこちら</a>
                 </div>
-            </form>
         </div>
     </div>
 @endsection

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="auth-page">
-        <div class="auth-container">
+        <div class="auth-card">
 
             <h1 class="auth-title">ログイン</h1>
 
