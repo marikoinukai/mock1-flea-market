@@ -10,7 +10,7 @@
                 <div class="purchase-item">
                     <div class="purchase-item__img">
                         @php
-                            // item詳細と同じく、storage/ と http の両対応にしておくのが安全
+                            // item詳細と同じく、storage/ と http の両対応
                             $path = $item->image->image_path ?? null;
                             $src = $path ? (str_starts_with($path, 'http') ? $path : asset('storage/' . $path)) : null;
                         @endphp
@@ -18,7 +18,7 @@
                         @if ($src)
                             <img src="{{ $src }}" alt="商品画像">
                         @else
-                            {{-- 画像が無い時はグレー枠だけ見せる（CSSで整える） --}}
+                            {{-- 画像が無い時はグレー枠 --}}
                         @endif
                     </div>
 
@@ -34,7 +34,7 @@
                 <div class="purchase-payment">
                     <h2>支払い方法</h2>
 
-                    {{-- 更新ボタン・GETフォームはやめる --}}
+                    {{-- 更新ボタン --}}
                     <select id="js-payment-select" class="purchase-payment-select">
                         <option value="">選択してください</option>
                         @foreach ($payments as $key => $label)

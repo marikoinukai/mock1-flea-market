@@ -32,8 +32,8 @@
 
             </form>
 
-            <div class="auth-register-link">
-                <a href="{{ route('register') }}">会員登録はこちら</a>
+            <div class="auth-links">
+                <a href="{{ route('register') }}" class="auth-link">会員登録はこちら</a>
             </div>
 
         </div>

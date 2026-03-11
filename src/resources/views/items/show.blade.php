@@ -161,10 +161,10 @@
                 @endforelse
             </div>
 
-            {{-- 商品へのコメント（見本の文言） --}}
+            {{-- 商品へのコメント --}}
             <p class="comment-form-label">商品へのコメント</p>
 
-            {{-- コメント投稿フォーム（ここは1回だけ） --}}
+            {{-- コメント投稿フォーム --}}
             <div class="comment-area">
                 @auth
                     <form method="POST" action="{{ route('items.comments.store', $item) }}" class="comment-form">

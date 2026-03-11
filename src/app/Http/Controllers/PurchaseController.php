@@ -13,7 +13,6 @@ class PurchaseController extends Controller
 {
     public function show(Item $item)
     {
-        // 購入画面で必要な情報の読み込み
         $item->load(['image']);
 
         $payments = [
@@ -40,11 +39,11 @@ class PurchaseController extends Controller
         // セッション配送先（無ければ空配列）
         $shipping = session("purchase.shipping.{$item->id}", []);
 
-        // ✅ A案：配送先必須チェック（UIは変えない）
+        // 配送先必須チェック
         $postal = $shipping['postal_code'] ?? $user->postal_code;
         $line1  = $shipping['address_line1'] ?? $user->address_line1;
 
-        // 「郵便番号 or 住所」が無ければ購入させない（要件に合わせて厳しくするなら両方必須でもOK）
+        // 郵便番号、住所が無ければ購入不可
         if (empty($postal) || empty($line1)) {
             return back()->withErrors([
                 'shipping' => '配送先が未設定です。住所変更から配送先を入力してください。',
@@ -54,7 +53,7 @@ class PurchaseController extends Controller
         try {
             DB::transaction(function () use ($item, $user, $validated, $shipping) {
 
-                // ★商品をロック
+                // 商品をロック
                 $lockedItem = Item::where('id', $item->id)
                     ->lockForUpdate()
                     ->firstOrFail();

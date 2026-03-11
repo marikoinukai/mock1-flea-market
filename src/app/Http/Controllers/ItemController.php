@@ -36,7 +36,7 @@ class ItemController extends Controller
 
         // マイリスト（いいねした商品）
         if ($tab === 'mylist') {
-            // 要件：未ログインなら何も表示（空）
+            // 未ログインなら表示なし
             if (!$userId) {
                 $items = collect();
                 return view('items.index', compact('items', 'tab', 'keyword'));
@@ -72,7 +72,7 @@ class ItemController extends Controller
         $user = auth()->user();
         $validated = $request->validated();
 
-        // ① 先に画像保存
+        // 先に画像保存
         $imageFile = $request->file('image');
         $path = $imageFile->store('items', 'public');
 
@@ -101,7 +101,7 @@ class ItemController extends Controller
             });
         } catch (\Throwable $e) {
 
-            // ★DB失敗時は保存済み画像削除
+            // DB失敗時は保存済み画像削除
             Storage::disk('public')->delete($path);
 
             throw $e;
