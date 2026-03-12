@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 </head>
 
-<body>
+<body class="@yield('body_class')">
     <header class="app-header">
         <div class="app-header__inner">
             <a href="{{ route('items.index') }}" class="app-header__logo">

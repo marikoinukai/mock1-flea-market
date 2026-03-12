@@ -1,25 +1,26 @@
 @extends('layouts.app')
-
+@section('body_class', 'wide')
 @section('content')
     <div class="items-page">
+
+        {{-- タブ（検索keywordを保持） --}}
+        <div class="items-tabs">
+
+            {{-- おすすめ --}}
+            <a href="{{ route('items.index', array_filter(['tab' => 'recommend', 'keyword' => $keyword])) }}"
+                class="items-tab {{ $tab === 'recommend' ? 'is-active' : '' }}">
+                おすすめ
+            </a>
+
+            {{-- マイリスト --}}
+            <a href="{{ route('items.index', array_filter(['tab' => 'mylist', 'keyword' => $keyword])) }}"
+                class="items-tab {{ $tab === 'mylist' ? 'is-active' : '' }}">
+                マイリスト
+            </a>
+
+        </div>
+
         <div class="items-container">
-
-            {{-- タブ（検索keywordを保持） --}}
-            <div class="items-tabs">
-
-                {{-- おすすめ --}}
-                <a href="{{ route('items.index', array_filter(['tab' => 'recommend', 'keyword' => $keyword])) }}"
-                    class="items-tab {{ $tab === 'recommend' ? 'is-active' : '' }}">
-                    おすすめ
-                </a>
-
-                {{-- マイリスト --}}
-                <a href="{{ route('items.index', array_filter(['tab' => 'mylist', 'keyword' => $keyword])) }}"
-                    class="items-tab {{ $tab === 'mylist' ? 'is-active' : '' }}">
-                    マイリスト
-                </a>
-
-            </div>
 
             {{-- マイリスト：未ログイン時は案内 --}}
             @if ($tab === 'mylist' && auth()->guest())

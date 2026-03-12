@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('body_class', 'wide')
 @section('content')
     <div class="purchase-page">
         <div class="purchase-wrap">
