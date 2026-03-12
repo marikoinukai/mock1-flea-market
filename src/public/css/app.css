@@ -12,26 +12,6 @@ body {
    App layout (共通)
 ========================= */
 
-/* .app-authbar {
-  padding: 10px;
-  background: #f6f6f6;
-  margin-bottom: 10px;
-  font-size: 14px;
-}
-
-.app-logout {
-  margin: 0 0 12px;
-  padding: 0 16px;
-}
-
-.app-logout__btn {
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  background: #fff;
-  border-radius: 8px;
-  cursor: pointer;
-} */
-
 .app-main {
   max-width: 900px;
   margin: 0 auto;
@@ -74,21 +54,6 @@ body {
   box-sizing: border-box;
 }
 
-/* .ui-button {
-  padding: 10px 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background: #fff;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.ui-button--primary {
-  border: none;
-  background: #fff;
-  color: #111;
-} */
-
 /* =========================
    Header（Grid版）
 ========================= */
@@ -105,7 +70,7 @@ body {
   box-sizing: border-box;
   align-items: center;
   display: grid;
-  grid-template-columns: auto 1fr auto; /* 左 / 真ん中 / 右 */
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   column-gap: 24px;
 }
@@ -201,8 +166,8 @@ body {
 /* Tabs */
 .items-tabs {
   display: flex;
-  justify-content: left; /* 中央寄せ */
-  gap: 80px;               /* タブ間隔 */
+  justify-content: left;
+  gap: 80px;
   margin: 0 0 50px;
   padding: 0 0 0 50px;
   border-bottom: 1px solid #5f5f5f;
@@ -339,31 +304,6 @@ body {
   color: #111;
   line-height: 1.4;
 }
-
-/* Seller (icon + name) */
-/* .item-card__seller {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 8px;
-}
-
-.item-card__avatar {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-}
-
-.item-card__avatar--placeholder {
-  background: #e5e5e5;
-}
-
-.item-card__sellerName {
-  font-size: 12px;
-  color: #555;
-} */
 
 /* =========================
    Item card hover
@@ -612,7 +552,7 @@ body {
 }
 
 .price-input__field{
-  padding-left: 28px; /* ￥のスペース */
+  padding-left: 28px;
 }
 
 /* =========================
@@ -727,7 +667,7 @@ body {
   padding: 16px;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: 360px 1fr; /* 左：画像 / 右：情報 */
+  grid-template-columns: 360px 1fr;
   gap: 32px;
   align-items: start;
 }
@@ -1046,7 +986,7 @@ body {
   padding: 0 24px;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: 1fr 360px; /* 左：可変 / 右：固定 */
+  grid-template-columns: 1fr 300px;
   gap: 48px;
   align-items: start;
 }
@@ -1084,7 +1024,7 @@ body {
 }
 
 .purchase-item__meta{
-  padding-top: 12px;
+  padding-top: 0;
 }
 
 .purchase-item__title {
@@ -1095,20 +1035,20 @@ body {
 }
 
 .purchase-item__price {
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 22px;
+  /* font-weight: 700; */
   margin: 0;
 }
 
 .purchase-rule {
-  height: 1px;
-  background: #cfcfcf;
-  margin: 24px 0;
+  height: 2px;
+  background: #909090;
+  margin: 30px 0 15px;
 }
 
 /* セクション */
 .purchase-section__head {
-  margin-bottom: 10px;
+  margin-bottom: 4px;
 }
 
 .purchase-section__head--between {
@@ -1122,42 +1062,35 @@ body {
 .purchase-section__title{
   font-size: 16px;
   font-weight: 700;
-  margin: 0 0 12px;
+  margin: 0 0 12px 16px;
 }
 
 .purchase-payment-select{
-  width: 280px;
+  width: 250px;
   height: 32px;
   border: 1px solid #cfcfcf;
   border-radius: 4px;
   background: #fff;
   padding: 0 10px;
+  margin: 12px 0 8px 70px;
 }
 
 .purchase-section__body p{
-  margin: 0 0 8px;
-  font-size: 14px;
+  margin: 0 0 0 70px;
+  font-size: 16px;
   word-break: break-word;
 }
 
 .purchase-link {
-  font-size: 14px;
+  font-size: 16px;
   color: #2a66ff;
   text-decoration: none;
+  margin:0 16px 14px 0;
 }
+
 .purchase-link:hover {
   text-decoration: underline;
 }
-
-/* select */
-/* .purchase-section select {
-  width: 240px;
-  height: 36px;
-  border: 1px solid #cfcfcf;
-  border-radius: 4px;
-  padding: 0 10px;
-  background: #fff;
-} */
 
 /* 右カラム */
 .purchase-right {
@@ -1167,7 +1100,7 @@ body {
 }
 
 .purchase-summary {
-  border: 1px solid #cfcfcf;
+  border: 2px solid #909090;
   background: #fff;
 }
 
@@ -1175,8 +1108,8 @@ body {
   display: grid;
   grid-template-columns: 120px 1fr;
   gap: 16px;
-  padding: 18px 16px;
-  border-bottom: 1px solid #cfcfcf;
+  padding: 24px 36px;
+  border-bottom: 2px solid #909090;
   font-size: 14px;
 }
 
@@ -1185,15 +1118,13 @@ body {
 }
 
 .purchase-summary__label {
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 16px;
   color: #111;
 }
 
 .purchase-summary__value {
   text-align: right;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 20px;
 }
 
 /* 購入ボタン */

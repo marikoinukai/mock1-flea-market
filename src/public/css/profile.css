@@ -95,30 +95,6 @@
   border: 1px solid #5F5F5F;
 }
 
-/* .profile-input {
-  padding: 10px 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background: #fff;
-  font-size: 14px;
-}
-
-.profile-error {
-  color: #d00;
-  font-size: 13px;
-}
-
-.profile-submit {
-  margin-top: 6px;
-  padding: 12px 14px;
-  border: none;
-  border-radius: 10px;
-  background: #111;
-  color: #fff;
-  font-size: 14px;
-  cursor: pointer;
-} */
-
 /* フォーム全体をカードっぽく */
 .profile-form {
   max-width: 560px;
@@ -127,16 +103,6 @@
   flex-direction: column;
   gap: 28px;
 }
-
-/* 入力は横幅100% */
-/* .profile-input {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.profile-submit {
-  width: 100%;
-}*/
 
 .profile-submit{
   margin: 28px 0 18px;
@@ -150,11 +116,3 @@
   font-weight: 700;
   cursor: pointer;
 }
-/*
-.profile-hint {
-  font-size: 12px;
-  color: #666;
-  margin: 0;
-}
-
-.is-hidden { display: none ; } */

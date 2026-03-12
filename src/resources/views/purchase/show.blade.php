@@ -23,8 +23,10 @@
                     </div>
 
                     <div class="purchase-item__meta">
-                        <div class="purchase-item__title">{{ $item->title }}</div>
-                        <div class="purchase-item__price">¥{{ number_format($item->price) }}</div>
+                        <h1 class="purchase-item__title">
+                            {{ $item->title }}
+                        </h1>
+                        <div class="purchase-item__price">¥ {{ number_format($item->price) }}</div>
                     </div>
                 </div>
 
@@ -82,7 +84,7 @@
                 <div class="purchase-summary">
                     <div class="purchase-summary__row">
                         <div class="purchase-summary__label">商品代金</div>
-                        <div class="purchase-summary__value">¥{{ number_format($item->price) }}</div>
+                        <div class="purchase-summary__value">¥ {{ number_format($item->price) }}</div>
                     </div>
 
                     <div class="purchase-summary__row">
