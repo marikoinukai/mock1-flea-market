@@ -993,12 +993,12 @@ body {
 
 .item-detail__right .comment-text{
   margin: 0;
-  background: #efefef;
-  border-radius: 4px;
-  padding: 10px 12px;
-  font-size: 10px;
-  line-height: 1.6;
-  margin: 0 0 10px;
+   background:#efefef;
+   border-radius: 4px;
+   padding: 10px 12px;
+   font-size: 10px;
+   line-height:1.6;
+   margin: 0 0 10px;
 }
 
 /* =========================
