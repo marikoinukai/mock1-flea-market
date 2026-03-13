@@ -662,13 +662,13 @@ body {
 ========================= */
 
 .item-detail{
-  max-width: 900px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 16px;
+  padding: 64px 0 0;
   box-sizing: border-box;
   display: grid;
   grid-template-columns: 360px 1fr;
-  gap: 32px;
+  gap: 72px;
   align-items: start;
 }
 
@@ -687,7 +687,8 @@ body {
   object-fit: cover;
   display: block;
   background: #d9d9d9;
-  border-radius: 8px;
+  border-radius: 4px;
+  margin-top: 28px;
 }
 
 .item-image-empty{
@@ -706,8 +707,8 @@ body {
 .item-detail__right{ min-width: 0; }
 
 .item-title{
-  font-size: 22px;
-  font-weight: 800;
+  font-size: 28px;
+  font-weight: 700;
   margin: 0 0 6px;
 }
 
@@ -719,8 +720,15 @@ body {
 
 .item-price{
   margin: 0 0 10px;
-  font-size: 18px;
-  font-weight: 800;
+  font-size: 24px;
+}
+
+.item-character__small{
+  font-size: 15px;
+}
+
+.item-character__medium{
+  font-size: 17px;
 }
 
 /* いいね・コメント数 */
@@ -728,14 +736,13 @@ body {
   display: flex;
   align-items: flex-start;
   gap: 24px;
-  margin: 12px 0 18px;
+  margin: 12px 0 12px 24px;
 }
 
 .reaction-like,
 .reaction-comment{
   display: flex;
   align-items: center;
-  gap: 4px;
   font-size: 13px;
   color: #000;
   text-decoration: none;
@@ -744,6 +751,9 @@ body {
   padding: 0;
   cursor: pointer;
   flex-direction:column;
+  justify-content: flex-start;
+  min-width: 24px;
+  line-height: 1;
 }
 
 .reaction-icon{
@@ -751,12 +761,27 @@ body {
   height:24px;
   object-fit:contain;
   display:block;
+  margin-bottom: 4px;
 }
 
 .reaction-like span,
 .reaction-comment span{
   font-size:12px;
   font-weight:600;
+  line-height: 1;
+  display: block;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.reaction-like{
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.reaction-like span{
+  margin-top: 1.3px;
 }
 
 /* 購入ボタン */
@@ -767,12 +792,12 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 44px;
+  height: 36px;
   background: #ff5555;
   color: #fff;
   text-decoration: none;
-  border-radius: 6px;
-  font-weight: 800;
+  border-radius: 4px;
+  font-size: 16px;
 }
 
 .purchase-button--sold{
@@ -793,8 +818,8 @@ body {
 
 .item-section__title{
   margin: 0 0 8px;
-  font-size: 16px;
-  font-weight: 800;
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .item-description{
@@ -807,7 +832,7 @@ body {
 /* 商品情報（カテゴリー・状態） */
 .item-info{
   display: grid;
-  gap: 8px;
+  gap: 16px;
 }
 
 .item-info__row{
@@ -818,7 +843,7 @@ body {
 }
 
 .item-info__label{
-  color: #666;
+  color: #111;
   font-weight: 700;
   font-size: 13px;
 }
@@ -832,18 +857,19 @@ body {
 .item-category{
   display: inline-flex;
   align-items: center;
-  padding: 4px 10px;
+  padding: 2px 12px;
   border-radius: 999px;
   background: #e9e9e9;
   font-size: 12px;
-  margin-right: 6px;
+  margin: 6px 6px 6px 0;
 }
 
 /* コメント投稿 */
 .comment-title{
   font-size: 18px;
   font-weight: 800;
-  margin: 18px 0 10px;
+  margin: 32px 0 16px;
+  color: #666;
 }
 
 .comment-area{ margin-bottom: 8px; }
@@ -854,7 +880,7 @@ body {
 }
 
 .comment-form-label{
-  margin: 16px 0 8px;
+  margin: 16px 0 4px;
   font-weight: 800;
 }
 
@@ -863,18 +889,20 @@ body {
   min-height: 110px;
   padding: 10px 12px;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 4px;
   box-sizing: border-box;
   resize: vertical;
+  margin-bottom: 16px;
 }
 
 .comment-submit{
-  height: 44px;
+  height: 36px;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   background: #ff5555;
   color: #fff;
-  font-weight: 800;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
 }
 
@@ -897,7 +925,7 @@ body {
   padding: 0 16px;
   box-sizing: border-box;
   display: grid;
-  gap: 14px;
+  gap: 4px;
 }
 
 .comment-empty{ margin: 0; color: #666; }
@@ -919,18 +947,18 @@ body {
 .comment-body{ flex: 1; min-width: 0; }
 
 .comment-user-name{
-  margin: 0 0 4px;
+  margin: 4px 0 0;
   font-weight: 800;
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .comment-text{
   width: 100%;
   box-sizing: border-box;
   background: #efefef;
-  border-radius: 6px;
+  border-radius: 4px;
   padding: 10px 12px;
-  font-size: 13px;
+  font-size: 10px;
   line-height: 1.6;
   word-break: break-word;
   overflow-wrap: anywhere;
@@ -958,18 +986,19 @@ body {
 }
 
 .item-detail__right .comment-user-name{
-  margin: 0 0 6px;
-  font-weight: 800;
-  font-size: 13px;
+  margin: 4px 0 0;
+  font-weight: 700;
+  font-size: 14px;
 }
 
 .item-detail__right .comment-text{
   margin: 0;
   background: #efefef;
-  border-radius: 6px;
+  border-radius: 4px;
   padding: 10px 12px;
-  font-size: 13px;
+  font-size: 10px;
   line-height: 1.6;
+  margin: 0 0 10px;
 }
 
 /* =========================

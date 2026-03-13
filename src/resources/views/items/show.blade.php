@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('body_class', 'wide')
 @section('content')
 
     <div class="item-detail">
@@ -37,7 +37,11 @@
                         {{ $item->brand_name ?? 'ブランド未設定' }}
                     </p>
 
-                    <p class="item-price">¥{{ number_format($item->price) }}(税込)</p>
+                    <p class="item-price">
+                        <span class="item-character__small">¥</span>
+                        {{ number_format($item->price) }}
+                        <span class="item-character__medium">(税込)</span>
+                    </p>
                 </div>
 
                 {{-- いいね・コメント数 --}}
@@ -170,13 +174,13 @@
                     <form method="POST" action="{{ route('items.comments.store', $item) }}" class="comment-form">
                         @csrf
 
-                        <textarea name="body" class="comment-input" placeholder="コメントを入力してください">{{ old('body') }}</textarea>
+                        <textarea name="body" class="comment-input">{{ old('body') }}</textarea>
 
                         @error('body')
                             <p class="comment-error">{{ $message }}</p>
                         @enderror
 
-                        <button type="submit" class="comment-submit">コメントする</button>
+                        <button type="submit" class="comment-submit">コメントを送信する</button>
                     </form>
                 @else
                     <p class="comment-login-text">コメントするにはログインが必要です</p>
