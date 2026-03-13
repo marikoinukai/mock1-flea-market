@@ -21,10 +21,12 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+Auth::routes(['verify' => true]);
+
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 Route::get('/item/{item}', [ItemController::class, 'show'])->name('items.show');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     // いいね
     Route::post('/item/{item}/like', [LikeController::class, 'store'])->name('items.like');
     Route::delete('/item/{item}/like', [LikeController::class, 'destroy'])->name('items.unlike');
@@ -51,3 +53,11 @@ Route::middleware(['auth', 'profile.completed'])->group(function () {
     Route::get('/sell', [ItemController::class, 'create'])->name('items.create');
     Route::post('/sell', [ItemController::class, 'store'])->name('items.store');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
