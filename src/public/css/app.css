@@ -571,8 +571,8 @@ body {
 .mypage-header{
   display: flex;
   align-items: center;
-  gap: 28px;
-  padding: 28px 0 16px;
+  gap: 36px;
+  padding: 28px 84px 16px 150px;
 }
 
 /* 中央：ユーザー名 */
@@ -588,7 +588,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 44px;
+  height: 36px;
   padding: 0 22px;
   border: 2px solid #ff5555;
   color: #ff5555;
@@ -596,7 +596,7 @@ body {
   border-radius: 8px;
   text-decoration: none;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 16px;
   white-space: nowrap;
 }
 
@@ -606,7 +606,7 @@ body {
   gap: 40px;
   align-items: flex-end;
   border-bottom: 1px solid #5f5f5f;
-  padding: 14px 0;
+  padding: 14px 0 0 72px;
   margin-bottom: 18px;
 }
 
@@ -637,8 +637,8 @@ body {
 
 /* 左：丸アイコン */
 .mypage-avatar{
-  width: 72px;
-  height: 72px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   overflow: hidden;
   background: #d9d9d9;

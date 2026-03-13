@@ -31,45 +31,48 @@
             </a>
         </div>
 
-        @php
-            $items = $tab === 'buy' ? $buyItems : $sellItems;
-        @endphp
+        <div class="items-container">
 
-        @if ($items->isEmpty())
-            <p>表示する商品がありません。</p>
-        @else
-            <div class="items-grid">
-                @foreach ($items as $item)
-                    <a href="{{ route('items.show', $item) }}" class="item-card">
-                        <div class="item-card__box">
-                            <div class="item-card__media">
-                                @if ($item->is_sold)
-                                    <div class="item-card__sold">Sold</div>
-                                @endif
+            @php
+                $items = $tab === 'buy' ? $buyItems : $sellItems;
+            @endphp
 
-                                @php
-                                    $path = $item->image->image_path ?? null;
-                                    $src = $path
-                                        ? (str_starts_with($path, 'http')
-                                            ? $path
-                                            : asset('storage/' . $path))
-                                        : null;
-                                @endphp
+            @if ($items->isEmpty())
+                <p>表示する商品がありません。</p>
+            @else
+                <div class="items-grid">
+                    @foreach ($items as $item)
+                        <a href="{{ route('items.show', $item) }}" class="item-card">
+                            <div class="item-card__box">
+                                <div class="item-card__media">
+                                    @if ($item->is_sold)
+                                        <div class="item-card__sold">Sold</div>
+                                    @endif
 
-                                @if ($src)
-                                    <img src="{{ $src }}" class="item-card__img" alt="商品画像">
-                                @else
-                                    <div class="item-card__noimg">No Image</div>
-                                @endif
+                                    @php
+                                        $path = $item->image->image_path ?? null;
+                                        $src = $path
+                                            ? (str_starts_with($path, 'http')
+                                                ? $path
+                                                : asset('storage/' . $path))
+                                            : null;
+                                    @endphp
+
+                                    @if ($src)
+                                        <img src="{{ $src }}" class="item-card__img" alt="商品画像">
+                                    @else
+                                        <div class="item-card__noimg">No Image</div>
+                                    @endif
+                                </div>
+
+                                <div class="item-card__body">
+                                    <div class="item-card__title">{{ $item->title }}</div>
+                                </div>
                             </div>
-
-                            <div class="item-card__body">
-                                <div class="item-card__title">{{ $item->title }}</div>
-                            </div>
-                        </div>
-                    </a>
-                @endforeach
-            </div>
-        @endif
+                        </a>
+                    @endforeach
+                </div>
+            @endif
+        </div>
     </div>
 @endsection
