@@ -36,17 +36,28 @@
                 <div class="purchase-payment">
                     <h2>支払い方法</h2>
 
-                    {{-- 更新ボタン --}}
-                    <select id="js-payment-select" class="purchase-payment-select">
-                        <option value="">選択してください</option>
-                        @foreach ($payments as $key => $label)
-                            <option value="{{ $key }}"
-                                {{ old('payment_method', request('payment_method')) === $key ? 'selected' : '' }}>
-                                {{ $label }}
-                            </option>
-                        @endforeach
+                    @php
+                        $selectedPaymentMethod = old('payment_method', request('payment_method', ''));
+                        $selectedPaymentLabel = $payments[$selectedPaymentMethod] ?? '選択してください';
+                    @endphp
 
-                    </select>
+                    <div class="purchase-payment-custom">
+                        <button type="button" class="purchase-payment-custom__trigger" id="js-payment-trigger">
+                            <span id="js-payment-trigger-label">{{ $selectedPaymentLabel }}</span>
+                            <span class="purchase-payment-custom__arrow">▾</span>
+                        </button>
+
+                        <ul class="purchase-payment-custom__menu is-hidden" id="js-payment-menu">
+                            @foreach ($payments as $key => $label)
+                                <li class="purchase-payment-custom__option {{ $selectedPaymentMethod === $key ? 'is-selected' : '' }}"
+                                    data-value="{{ $key }}"
+                                    data-label="{{ $label }}">
+                                    {{ $label }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
                     @error('payment_method')
                         <p class="ui-error">{{ $message }}</p>
                     @enderror
