@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const select = document.getElementById('js-payment-select');
   const label = document.getElementById('js-payment-label');
   const hidden = document.getElementById('js-payment-hidden');
+
   if (!select || !label || !hidden) return;
 
   const labelMap = {};
@@ -26,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const triggerLabel = document.getElementById('js-payment-trigger-label');
     const summaryLabel = document.getElementById('js-payment-label');
     const options = document.querySelectorAll('.purchase-payment-custom__option');
+    const wrapper = document.querySelector('.purchase-payment-custom');
 
     if (!trigger || !menu || !hiddenInput || !triggerLabel || !summaryLabel) {
         return;
@@ -33,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     trigger.addEventListener('click', function () {
         menu.classList.toggle('is-hidden');
+        wrapper.classList.toggle('is-open');
     });
 
     options.forEach(function (option) {
@@ -50,12 +53,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
             option.classList.add('is-selected');
             menu.classList.add('is-hidden');
+            wrapper.classList.remove('is-open');
+
         });
     });
 
     document.addEventListener('click', function (e) {
         if (!e.target.closest('.purchase-payment-custom')) {
             menu.classList.add('is-hidden');
+            wrapper.classList.remove('is-open');
         }
     });
 });

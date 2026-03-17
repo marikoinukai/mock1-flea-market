@@ -1412,6 +1412,12 @@ body.wide .app-main {
   position: relative;
   width: 250px;
   margin: 12px 0 8px 70px;
+  z-index: 30;
+}
+
+.purchase-payment-custom.is-open .purchase-payment-custom__trigger {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .purchase-payment-custom__trigger {
@@ -1427,6 +1433,7 @@ body.wide .app-main {
   cursor: pointer;
   box-sizing: border-box;
   position: relative;
+  transition: opacity 0.15s ease;
 }
 
 .purchase-payment-custom__arrow {
@@ -1440,7 +1447,7 @@ body.wide .app-main {
 
 .purchase-payment-custom__menu {
   position: absolute;
-  top: calc(100% + 4px);
+  top: 0;
   left: 0;
   width: 100%;
   margin: 0;
@@ -1489,6 +1496,11 @@ body.wide .app-main {
   margin-top: 12px;
 }
 
+.sell-condition-custom.is-open .sell-condition-custom__trigger {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .sell-condition-custom__trigger {
   width: 100%;
   height: 40px;
@@ -1502,6 +1514,7 @@ body.wide .app-main {
   cursor: pointer;
   box-sizing: border-box;
   position: relative;
+  transition: opacity 0.15s ease;
 }
 
 .sell-condition-custom__arrow {
@@ -1515,7 +1528,7 @@ body.wide .app-main {
 
 .sell-condition-custom__menu {
   position: absolute;
-  top: calc(100% + 4px);
+  top: 0;
   left: 0;
   width: 100%;
   margin: 0;
@@ -1523,7 +1536,7 @@ body.wide .app-main {
   list-style: none;
   background: #636769;
   border-radius: 4px;
-  z-index: 20;
+  z-index: 30;
   box-sizing: border-box;
   overflow: hidden;
 }

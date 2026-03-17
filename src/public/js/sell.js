@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const hiddenInput = document.getElementById('js-condition-hidden');
     const triggerLabel = document.getElementById('js-condition-trigger-label');
     const options = document.querySelectorAll('.sell-condition-custom__option');
+    const wrapper = document.querySelector('.sell-condition-custom');
 
     if (!trigger || !menu || !hiddenInput || !triggerLabel) {
         return;
@@ -54,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     trigger.addEventListener('click', function () {
         menu.classList.toggle('is-hidden');
+        wrapper.classList.toggle('is-open');
     });
 
     options.forEach(function (option) {
@@ -70,12 +72,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
             option.classList.add('is-selected');
             menu.classList.add('is-hidden');
+            wrapper.classList.remove('is-open');
         });
     });
 
     document.addEventListener('click', function (e) {
         if (!e.target.closest('.sell-condition-custom')) {
             menu.classList.add('is-hidden');
+            wrapper.classList.remove('is-open');
         }
     });
 });
