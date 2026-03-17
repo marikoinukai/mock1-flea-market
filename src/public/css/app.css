@@ -1478,3 +1478,82 @@ body.wide .app-main {
   font-weight: 700;
   color: #fff;
 }
+
+/* ======================
+   Sell condition custom select
+====================== */
+
+.sell-condition-custom {
+  position: relative;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.sell-condition-custom__trigger {
+  width: 100%;
+  height: 40px;
+  padding: 0 40px 0 12px;
+  border: 1px solid #5F5F5F;
+  border-radius: 4px;
+  background: #fff;
+  color: #111;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.sell-condition-custom__arrow {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 28px;
+}
+
+.sell-condition-custom__menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: #636769;
+  border-radius: 4px;
+  z-index: 20;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.sell-condition-custom__option {
+  position: relative;
+  padding: 10px 12px 10px 30px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.sell-condition-custom__option:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sell-condition-custom__option.is-selected {
+  background: #5599ff;
+  box-shadow: inset 0 0 0 6px #636769;
+  border-radius: 14px;
+}
+
+.sell-condition-custom__option.is-selected::before {
+  content: "✓";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+}

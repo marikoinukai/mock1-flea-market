@@ -53,15 +53,31 @@
                 <label class="form-label">
                     商品の状態
                 </label>
-                <select class="ui-input" name="item_condition_id">
-                    <option value="">選択してください</option>
-                    @foreach ($conditions as $id => $name)
-                        <option value="{{ $id }}"
-                            {{ (string) old('item_condition_id') === (string) $id ? 'selected' : '' }}>
-                            {{ $name }}
-                        </option>
-                    @endforeach
-                </select>
+
+                @php
+                    $selectedConditionId = old('item_condition_id', '');
+                    $selectedConditionLabel = $conditions[$selectedConditionId] ?? '選択してください';
+                @endphp
+
+                <div class="sell-condition-custom">
+                    <button type="button" class="sell-condition-custom__trigger" id="js-condition-trigger">
+                        <span id="js-condition-trigger-label">{{ $selectedConditionLabel }}</span>
+                        <span class="sell-condition-custom__arrow">▾</span>
+                    </button>
+
+                    <ul class="sell-condition-custom__menu is-hidden" id="js-condition-menu">
+                        @foreach ($conditions as $id => $name)
+                            <li class="sell-condition-custom__option {{ (string) $selectedConditionId === (string) $id ? 'is-selected' : '' }}"
+                                data-value="{{ $id }}"
+                                data-label="{{ $name }}">
+                                {{ $name }}
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <input type="hidden" name="item_condition_id" id="js-condition-hidden" value="{{ $selectedConditionId }}">
+
                 @error('item_condition_id')
                     <p class="ui-error">{{ $message }}</p>
                 @enderror
