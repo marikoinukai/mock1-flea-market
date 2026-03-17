@@ -6,7 +6,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\AddressController;
+// use App\Http\Controllers\AddressController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -54,10 +54,10 @@ Route::middleware(['auth', 'profile.completed'])->group(function () {
     Route::post('/sell', [ItemController::class, 'store'])->name('items.store');
 });
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

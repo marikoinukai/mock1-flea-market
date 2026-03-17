@@ -11,7 +11,7 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
 
-        $tab = request('tab', 'sell');
+        $page = request('page', request('tab', 'sell'));
 
         // 出品した商品
         $sellItems = Item::with(['image'])
@@ -27,7 +27,7 @@ class ProfileController extends Controller
             ->latest()
             ->get();
 
-        return view('mypage.index', compact('user', 'tab', 'sellItems', 'buyItems'));
+        return view('mypage.index', compact('user', 'page', 'sellItems', 'buyItems'));
     }
 
     public function edit()

@@ -22,11 +22,11 @@
         </div>
 
         <div class="mypage-tabs">
-            <a href="{{ route('mypage', ['tab' => 'sell']) }}" class="mypage-tab {{ $tab === 'sell' ? 'is-active' : '' }}">
+            <a href="{{ route('mypage', ['page' => 'sell']) }}" class="mypage-tab {{ $page === 'sell' ? 'is-active' : '' }}">
                 出品した商品
             </a>
 
-            <a href="{{ route('mypage', ['tab' => 'buy']) }}" class="mypage-tab {{ $tab === 'buy' ? 'is-active' : '' }}">
+            <a href="{{ route('mypage', ['page' => 'buy']) }}" class="mypage-tab {{ $page === 'buy' ? 'is-active' : '' }}">
                 購入した商品
             </a>
         </div>
@@ -34,7 +34,7 @@
         <div class="items-container">
 
             @php
-                $items = $tab === 'buy' ? $buyItems : $sellItems;
+                $items = $page === 'buy' ? $buyItems : $sellItems;
             @endphp
 
             @if ($items->isEmpty())
