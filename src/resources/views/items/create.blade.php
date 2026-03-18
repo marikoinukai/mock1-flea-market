@@ -124,8 +124,8 @@
                 <div class="price-input">
                     <span class="price-input__yen">¥</span>
 
-                    <input class="ui-input price-input__field" type="number" name="price" value="{{ old('price') }}"
-                        min="0" step="1">
+                    <input class="ui-input price-input__field" type="text" name="price" value="{{ old('price') }}"
+                        inputmode="numeric">
                 </div>
                 @error('price')
                     <p class="ui-error">{{ $message }}</p>
