@@ -68,8 +68,7 @@
                     <ul class="sell-condition-custom__menu is-hidden" id="js-condition-menu">
                         @foreach ($conditions as $id => $name)
                             <li class="sell-condition-custom__option {{ (string) $selectedConditionId === (string) $id ? 'is-selected' : '' }}"
-                                data-value="{{ $id }}"
-                                data-label="{{ $name }}">
+                                data-value="{{ $id }}" data-label="{{ $name }}">
                                 {{ $name }}
                             </li>
                         @endforeach
@@ -111,7 +110,7 @@
                 <label class="form-label">
                     商品の説明
                 </label>
-                <textarea class="ui-input" name="description" rows="6" maxlength="255">{{ old('description') }}</textarea>
+                <textarea class="ui-input" name="description" rows="6">{{ old('description') }}</textarea>
                 @error('description')
                     <p class="ui-error">{{ $message }}</p>
                 @enderror
