@@ -13,7 +13,9 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
+use Laravel\Fortify\Contracts\VerifyEmailResponse as VerifyEmailResponseContract;
 use App\Http\Responses\RegisterResponse;
+use App\Http\Responses\VerifyEmailResponse as CustomVerifyEmailResponse;
 use Illuminate\Support\Facades\Auth;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -24,6 +26,7 @@ class FortifyServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(RegisterResponseContract::class, RegisterResponse::class);
+        $this->app->singleton(VerifyEmailResponseContract::class, CustomVerifyEmailResponse::class);
     }
 
     /**
@@ -42,6 +45,10 @@ class FortifyServiceProvider extends ServiceProvider
 
         Fortify::registerView(function () {
             return view('auth.register');
+        });
+
+        Fortify::verifyEmailView(function () {
+            return view('auth.verify');
         });
 
         Fortify::authenticateUsing(function (Request $request) {

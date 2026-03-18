@@ -1,11 +1,8 @@
 補足事項
 
-認証方法
-その画面は「認証してください」という案内画面
-MailHogでメールを開く
-メール内リンクを押す
-その遷移先が「メール認証サイト」
-認証完了後にプロフィール設定画面へ行く
+会員登録・ログイン・メール認証は Fortify ベースで実装。
+route:list にて /login、/register、/email/verify が Fortify コントローラを向いていることを確認。
+旧 Auth::routes() および LoginController / RegisterController / VerificationController 依存は解消済み。
 
 
 

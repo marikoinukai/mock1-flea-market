@@ -83,7 +83,7 @@ class PurchaseController extends Controller
 
         session()->forget('purchase.shipping.' . $item->id);
 
-        return redirect()->route('mypage', ['tab' => 'buy']);
+        return redirect()->route('mypage', ['page' => 'buy']);
     }
 
     public function editAddress(Item $item)
@@ -112,7 +112,6 @@ class PurchaseController extends Controller
         ]);
 
         return redirect()
-            ->route('purchase.show', $item)
-            ->with('success', '配送先を更新しました');
+            ->route('purchase.show', $item);
     }
 }

@@ -39,7 +39,7 @@ class ProfileRequest extends FormRequest
             'name.max' => 'ユーザー名は20文字以内で入力してください',
 
             'postal_code.required' => '郵便番号を入力してください',
-            'postal_code.regex' => '郵便番号はハイフンあり8文字で入力してください',
+            'postal_code.regex' => '郵便番号は123-4567の形式で入力してください',
 
             'address_line1.required' => '住所を入力してください',
             'address_line1.max' => '住所は255文字以内で入力してください',

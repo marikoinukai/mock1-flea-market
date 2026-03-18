@@ -9,13 +9,13 @@
             </p>
 
             <div class="verify-action">
-                <a href="http://localhost:8025" class="verify-button">
+                <a href="http://localhost:8025" target="_blank" rel="noopener noreferrer" class="verify-button">
                     認証はこちらから
                 </a>
             </div>
 
             <div class="verify-resend">
-                <form method="POST" action="{{ route('verification.resend') }}">
+                <form method="POST" action="{{ url('/email/verification-notification') }}">
                     @csrf
                     <button type="submit" class="verify-resend__link">
                         認証メールを再送する

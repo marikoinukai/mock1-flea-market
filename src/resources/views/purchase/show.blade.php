@@ -50,8 +50,7 @@
                         <ul class="purchase-payment-custom__menu is-hidden" id="js-payment-menu">
                             @foreach ($payments as $key => $label)
                                 <li class="purchase-payment-custom__option {{ $selectedPaymentMethod === $key ? 'is-selected' : '' }}"
-                                    data-value="{{ $key }}"
-                                    data-label="{{ $label }}">
+                                    data-value="{{ $key }}" data-label="{{ $label }}">
                                     {{ $label }}
                                 </li>
                             @endforeach
@@ -72,10 +71,11 @@
                         <a href="{{ route('purchase.address.edit', $item) }}" class="purchase-link">
                             変更する
                         </a>
-
                     </div>
 
-
+                    @error('shipping')
+                        <p class="ui-error">{{ $message }}</p>
+                    @enderror
 
                     <div class="purchase-section__body">
                         <p>〒 {{ $shipping['postal_code'] }}</p>
