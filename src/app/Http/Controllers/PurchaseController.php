@@ -76,6 +76,14 @@ class PurchaseController extends Controller
             'customer_email' => $user->email,
             'success_url' => route('purchase.success', ['item' => $item->id]) . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('purchase.cancel', ['item' => $item->id]),
+            'metadata' => [
+                'buyer_id' => $user->id,
+                'item_id' => $item->id,
+                'payment_method' => $validated['payment_method'],
+                'shipping_postal_code' => $postal,
+                'shipping_address_line1' => $line1,
+                'shipping_address_line2' => $line2,
+            ],
         ]);
 
         return redirect()->away($session->url);
@@ -112,7 +120,65 @@ class PurchaseController extends Controller
 
     public function success(Request $request, Item $item)
     {
-        return redirect()->route('items.index');
+        $sessionId = $request->query('session_id');
+
+        if (empty($sessionId)) {
+            return redirect()->route('items.index')->with('error', '決済情報を確認できませんでした');
+        }
+
+        $stripe = new StripeClient(config('services.stripe.secret'));
+
+        try {
+            $checkoutSession = $stripe->checkout->sessions->retrieve($sessionId);
+        } catch (\Exception $e) {
+            return redirect()->route('items.index')->with('error', '決済情報の取得に失敗しました');
+        }
+
+        $paymentMethod = $checkoutSession->metadata->payment_method ?? null;
+
+        if ($paymentMethod === 'convenience') {
+            session()->forget('purchase.shipping.' . $item->id);
+
+            return redirect()->route('items.index')->with(
+                'success',
+                'コンビニ支払いを受け付けました。入金確認後に購入確定となります。'
+            );
+        }
+
+        if (($checkoutSession->payment_status ?? null) !== 'paid') {
+            return redirect()->route('items.index')->with('error', '決済が完了していません');
+        }
+
+        try {
+            DB::transaction(function () use ($item, $checkoutSession) {
+                $lockedItem = Item::where('id', $item->id)
+                    ->lockForUpdate()
+                    ->firstOrFail();
+
+                if ($lockedItem->is_sold) {
+                    throw new \RuntimeException('この商品は売り切れです');
+                }
+
+                Order::create([
+                    'buyer_id' => $checkoutSession->metadata->buyer_id,
+                    'item_id' => $lockedItem->id,
+                    'payment_method' => $checkoutSession->metadata->payment_method,
+                    'shipping_postal_code' => $checkoutSession->metadata->shipping_postal_code,
+                    'shipping_address_line1' => $checkoutSession->metadata->shipping_address_line1,
+                    'shipping_address_line2' => $checkoutSession->metadata->shipping_address_line2,
+                ]);
+
+                $lockedItem->update([
+                    'is_sold' => true,
+                ]);
+            });
+        } catch (\RuntimeException $e) {
+            return redirect()->route('items.index')->with('error', $e->getMessage());
+        }
+
+        session()->forget('purchase.shipping.' . $item->id);
+
+        return redirect()->route('items.index')->with('success', '購入が完了しました');
     }
 
     public function cancel(Item $item)
