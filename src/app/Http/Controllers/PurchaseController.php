@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\PurchaseRequest;
 use App\Http\Requests\AddressRequest;
+use Illuminate\Http\Request;
+use Stripe\StripeClient;
 
 class PurchaseController extends Controller
 {
@@ -36,54 +38,47 @@ class PurchaseController extends Controller
         $validated = $request->validated();
         $user = Auth::user();
 
-        // セッション配送先（無ければ空配列）
         $shipping = session("purchase.shipping.{$item->id}", []);
 
-        // 配送先必須チェック
         $postal = $shipping['postal_code'] ?? $user->postal_code;
         $line1  = $shipping['address_line1'] ?? $user->address_line1;
+        $line2  = $shipping['address_line2'] ?? $user->address_line2 ?? '';
 
-        // 郵便番号、住所が無ければ購入不可
         if (empty($postal) || empty($line1)) {
             return back()->withErrors([
                 'shipping' => '配送先が未設定です。住所変更から配送先を入力してください。',
             ])->withInput();
         }
 
-        try {
-            DB::transaction(function () use ($item, $user, $validated, $shipping) {
-
-                // 商品をロック
-                $lockedItem = Item::where('id', $item->id)
-                    ->lockForUpdate()
-                    ->firstOrFail();
-
-                // 売り切れチェック
-                if ($lockedItem->is_sold) {
-                    throw new \RuntimeException('この商品は売り切れです');
-                }
-
-                // 注文作成
-                Order::create([
-                    'buyer_id' => $user->id,
-                    'item_id'  => $lockedItem->id,
-                    'payment_method' => $validated['payment_method'],
-
-                    'shipping_postal_code'   => $shipping['postal_code'] ?? $user->postal_code,
-                    'shipping_address_line1' => $shipping['address_line1'] ?? $user->address_line1,
-                    'shipping_address_line2' => $shipping['address_line2'] ?? $user->address_line2,
-                ]);
-
-                // 売却済みに更新
-                $lockedItem->update(['is_sold' => true]);
-            });
-        } catch (\RuntimeException $e) {
-            return back()->with('error', $e->getMessage());
+        if ($item->is_sold) {
+            return back()->with('error', 'この商品は売り切れです');
         }
 
-        session()->forget('purchase.shipping.' . $item->id);
+        $paymentMethodType = $validated['payment_method'] === 'convenience'
+            ? 'konbini'
+            : 'card';
 
-        return redirect()->route('mypage', ['page' => 'buy']);
+        $stripe = new StripeClient(config('services.stripe.secret'));
+
+        $session = $stripe->checkout->sessions->create([
+            'mode' => 'payment',
+            'payment_method_types' => [$paymentMethodType],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'jpy',
+                    'unit_amount' => (int) $item->price,
+                    'product_data' => [
+                        'name' => $item->title,
+                    ],
+                ],
+                'quantity' => 1,
+            ]],
+            'customer_email' => $user->email,
+            'success_url' => route('purchase.success', ['item' => $item->id]) . '?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => route('purchase.cancel', ['item' => $item->id]),
+        ]);
+
+        return redirect()->away($session->url);
     }
 
     public function editAddress(Item $item)
@@ -113,5 +108,15 @@ class PurchaseController extends Controller
 
         return redirect()
             ->route('purchase.show', $item);
+    }
+
+    public function success(Request $request, Item $item)
+    {
+        return redirect()->route('items.index');
+    }
+
+    public function cancel(Item $item)
+    {
+        return redirect()->route('purchase.show', $item)->with('error', '決済をキャンセルしました');
     }
 }

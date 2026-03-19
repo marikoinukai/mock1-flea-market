@@ -1,5 +1,9 @@
 補足事項
 
+STRIPE_KEY=pk_test_1
+STRIPE_SECRET=sk_test_1
+
+
 会員登録・ログイン・メール認証は Fortify ベースで実装。
 route:list にて /login、/register、/email/verify が Fortify コントローラを向いていることを確認。
 旧 Auth::routes() および LoginController / RegisterController / VerificationController 依存は解消済み。
