@@ -17,6 +17,8 @@ use Laravel\Fortify\Contracts\VerifyEmailResponse as VerifyEmailResponseContract
 use App\Http\Responses\RegisterResponse;
 use App\Http\Responses\VerifyEmailResponse as CustomVerifyEmailResponse;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
+use App\Http\Responses\LoginResponse as CustomLoginResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class FortifyServiceProvider extends ServiceProvider
     {
         $this->app->singleton(RegisterResponseContract::class, RegisterResponse::class);
         $this->app->singleton(VerifyEmailResponseContract::class, CustomVerifyEmailResponse::class);
+        $this->app->singleton(LoginResponseContract::class, CustomLoginResponse::class);
     }
 
     /**
@@ -57,7 +60,7 @@ class FortifyServiceProvider extends ServiceProvider
                 'password' => ['required'],
             ], [
                 'email.required' => 'メールアドレスを入力してください',
-                'email.email' => 'メールアドレスの形式で入力してください',
+                'email.email' => 'メールアドレスはメール形式で入力してください',
                 'password.required' => 'パスワードを入力してください',
             ])->validate();
 
