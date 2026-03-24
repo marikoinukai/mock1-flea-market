@@ -28,7 +28,7 @@
             @else
                 {{-- 件数ゼロ --}}
                 @if ($items->isEmpty())
-                    <p class="items-empty">表示する商品がありません。</p>
+                    <p class="items-empty">表示する商品がありません</p>
                 @else
                     {{-- 一覧（4列グリッド） --}}
                     <div class="items-grid">

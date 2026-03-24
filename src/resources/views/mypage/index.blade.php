@@ -22,7 +22,8 @@
         </div>
 
         <div class="mypage-tabs">
-            <a href="{{ route('mypage', ['page' => 'sell']) }}" class="mypage-tab {{ $page === 'sell' ? 'is-active' : '' }}">
+            <a href="{{ route('mypage', ['page' => 'sell']) }}"
+                class="mypage-tab {{ $page === 'sell' ? 'is-active' : '' }}">
                 出品した商品
             </a>
 
@@ -38,7 +39,7 @@
             @endphp
 
             @if ($items->isEmpty())
-                <p>表示する商品がありません。</p>
+                <p>表示する商品がありません</p>
             @else
                 <div class="items-grid">
                     @foreach ($items as $item)

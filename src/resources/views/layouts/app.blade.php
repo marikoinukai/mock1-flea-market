@@ -42,7 +42,12 @@
                         </a>
                     @else
                         <a href="{{ route('login') }}" class="app-header__link">ログイン</a>
-                        <a href="{{ route('register') }}" class="app-header__link">会員登録</a>
+                        <a href="{{ route('mypage') }}" class="app-header__user">
+                            <span class="app-header__userText">マイページ</span>
+                        </a>
+                        <a href="{{ route('items.create') }}" class="app-header__navBtn">
+                            出品
+                        </a>
                     @endauth
                 </nav>
             @endunless
