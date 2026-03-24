@@ -170,21 +170,17 @@
 
             {{-- コメント投稿フォーム --}}
             <div class="comment-area">
-                @auth
-                    <form method="POST" action="{{ route('items.comments.store', $item) }}" class="comment-form">
-                        @csrf
+                <form method="POST" action="{{ route('items.comments.store', $item) }}" class="comment-form">
+                    @csrf
 
-                        <textarea name="body" class="comment-input">{{ old('body') }}</textarea>
+                    <textarea name="body" class="comment-input">{{ old('body') }}</textarea>
 
-                        @error('body')
-                            <p class="comment-error">{{ $message }}</p>
-                        @enderror
+                    @error('body')
+                        <p class="comment-error">{{ $message }}</p>
+                    @enderror
 
-                        <button type="submit" class="comment-submit">コメントを送信する</button>
-                    </form>
-                @else
-                    <p class="comment-login-text">コメントするにはログインが必要です</p>
-                @endauth
+                    <button type="submit" class="comment-submit">コメントを送信する</button>
+                </form>
             </div>
         </div>
     </div>

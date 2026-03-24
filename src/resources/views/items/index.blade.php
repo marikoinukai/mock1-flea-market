@@ -21,60 +21,53 @@
         </div>
 
         <div class="items-container">
-
-            {{-- マイリスト：未ログイン時は案内 --}}
-            @if ($tab === 'mylist' && auth()->guest())
-                <p class="items-muted">マイリストはログイン時のみ表示されます</p>
+            {{-- 件数ゼロ --}}
+            @if ($items->isEmpty())
+                <p class="items-empty">表示する商品がありません</p>
             @else
-                {{-- 件数ゼロ --}}
-                @if ($items->isEmpty())
-                    <p class="items-empty">表示する商品がありません</p>
-                @else
-                    {{-- 一覧（4列グリッド） --}}
-                    <div class="items-grid">
-                        @foreach ($items as $item)
-                            <a href="{{ route('items.show', $item) }}" class="item-card">
+                {{-- 一覧（4列グリッド） --}}
+                <div class="items-grid">
+                    @foreach ($items as $item)
+                        <a href="{{ route('items.show', $item) }}" class="item-card">
 
-                                <div class="item-card__box">
-                                    {{-- 画像枠 --}}
-                                    <div class="item-card__media">
-                                        {{-- Sold --}}
-                                        @if ($item->is_sold)
-                                            <div class="item-card__sold">Sold</div>
-                                        @endif
+                            <div class="item-card__box">
+                                {{-- 画像枠 --}}
+                                <div class="item-card__media">
+                                    {{-- Sold --}}
+                                    @if ($item->is_sold)
+                                        <div class="item-card__sold">Sold</div>
+                                    @endif
 
-                                        {{-- 画像 --}}
-                                        @php
-                                            $path = $item->image->image_path ?? null;
-                                            $src = $path
-                                                ? (str_starts_with($path, 'http')
-                                                    ? $path
-                                                    : asset('storage/' . $path))
-                                                : null;
-                                        @endphp
+                                    {{-- 画像 --}}
+                                    @php
+                                        $path = $item->image->image_path ?? null;
+                                        $src = $path
+                                            ? (str_starts_with($path, 'http')
+                                                ? $path
+                                                : asset('storage/' . $path))
+                                            : null;
+                                    @endphp
 
-                                        @if ($src)
-                                            <img src="{{ $src }}" alt="商品画像" class="item-card__img">
-                                        @else
-                                            <div class="item-card__noimg">No Image</div>
-                                        @endif
+                                    @if ($src)
+                                        <img src="{{ $src }}" alt="商品画像" class="item-card__img">
+                                    @else
+                                        <div class="item-card__noimg">No Image</div>
+                                    @endif
 
-                                    </div>
-
-                                    {{-- 商品名 --}}
-                                    <div class="item-card__body">
-                                        <div class="item-card__title">
-                                            {{ $item->title }}
-                                        </div>
-                                    </div>
                                 </div>
 
-                            </a>
-                        @endforeach
-                    </div>
-                @endif
-            @endif
+                                {{-- 商品名 --}}
+                                <div class="item-card__body">
+                                    <div class="item-card__title">
+                                        {{ $item->title }}
+                                    </div>
+                                </div>
+                            </div>
 
+                        </a>
+                    @endforeach
+                </div>
+            @endif
         </div>
     </div>
 @endsection
