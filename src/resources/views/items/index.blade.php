@@ -24,7 +24,7 @@
 
             {{-- マイリスト：未ログイン時は案内 --}}
             @if ($tab === 'mylist' && auth()->guest())
-                <p class="items-muted">マイリストはログイン時のみ表示されます。</p>
+                <p class="items-muted">マイリストはログイン時のみ表示されます</p>
             @else
                 {{-- 件数ゼロ --}}
                 @if ($items->isEmpty())
