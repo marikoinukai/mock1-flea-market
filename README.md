@@ -28,6 +28,7 @@ cp .env.example .env
 ```
 
 4. .envに以下の環境変数を追加
+STRIPE_KEY と STRIPE_SECRET には、各自の Stripe テスト用 API キーを設定してください。
 ``` text
 DB_CONNECTION=mysql
 DB_HOST=mysql
