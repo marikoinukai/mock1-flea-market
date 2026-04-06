@@ -2,12 +2,12 @@
 coachtechフリマは、商品一覧の閲覧、商品詳細の確認、いいね、コメント、出品、購入ができるフリマアプリです。
 
 会員登録後にログインすることで、商品へのいいね、コメント投稿、商品出品、商品購入、プロフィール編集、マイページ機能を利用できます。
-また、メール認証機能と Stripe を用いた決済機能を実装しています。　
+また、メール認証機能と Stripe を用いた決済機能を実装しています。
 
 ## 環境構築
 **Dockerビルド**
 1. `git clone git@github.com:marikoinukai/mock1-flea-market.git`
-2. DockerDesktopアプリを立ち上げる
+2. Docker Desktopアプリを立ち上げる
 3. `docker-compose up -d --build`
 
 > *MacのM1・M2チップのPCの場合、`no matching manifest for linux/arm64/v8 in the manifest list entries`のメッセージが表示されビルドができないことがあります。
@@ -64,19 +64,40 @@ php artisan storage:link
 ``` bash
 php artisan db:seed
 ```
+## トラブルシューティング
+### 権限エラーが発生する場合
+環境によっては、storage と bootstrap/cache の書き込み権限が不足し、以下のような permission denied エラーが発生することがあります。
+- /var/www/storage/logs/laravel.log
+- /var/www/storage/framework/views/...
+
+その場合は、PHP コンテナ内で以下を実行してください。
+```bash
+chmod -R 777 storage bootstrap/cache
+php artisan config:clear
+php artisan cache:clear
+php artisan view:clear
+```
+
+その後、再度以下のコマンドを実行してください。
+```bash
+php artisan migrate
+php artisan storage:link
+php artisan db:seed
+```
+
 ## 認証機能について
 - 会員登録・ログイン・ログアウト・メール認証は Laravel Fortify を用いて実装しています。
 - `/login`、`/register`、`/email/verify` は Fortify のルートを使用しています。
 - 旧 `Auth::routes()` 依存は解消済みです。
 
-### ダミーデータ
+## ダミーデータ
 シーディングの実行で、以下のデータを作成します。
 
 1. テスト出品者1名（登録ユーザーが存在しない場合）
 - name: テスト出品者
 - email: test@example.com
 
-2. ダミーデータ10件
+2. ダミー商品10件
 - 販売価格
 - ブランド名
 - 商品の説明
