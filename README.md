@@ -1,26 +1,12 @@
-補足事項
+# coachtechフリマ
+coachtechフリマは、商品一覧の閲覧、商品詳細の確認、いいね、コメント、出品、購入ができるフリマアプリです。
 
-STRIPE_KEY=pk_test_1
-STRIPE_SECRET=sk_test_1
-
-
-会員登録・ログイン・メール認証は Fortify ベースで実装。
-route:list にて /login、/register、/email/verify が Fortify コントローラを向いていることを確認。
-旧 Auth::routes() および LoginController / RegisterController / VerificationController 依存は解消済み。
-
-
-
-# PiGLy(体重管理アプリ)
-PiGLyは、日々の体重・食事カロリー・運動時間を記録し、
-目標体重に向けて健康管理を行うための体重管理アプリです。
-
-ユーザー登録後、ログインすることで
-各ユーザーごとに体重ログの記録・検索・編集・削除ができます。
-また、目標体重を設定し、現在の進捗を確認することが可能です。　　
+会員登録後にログインすることで、商品へのいいね、コメント投稿、商品出品、商品購入、プロフィール編集、マイページ機能を利用できます。
+また、メール認証機能と Stripe を用いた決済機能を実装しています。　
 
 ## 環境構築
 **Dockerビルド**
-1. `git clone git@github.com:marikoinukai/pigly.git`
+1. `git clone git@github.com:marikoinukai/mock1-flea-market.git`
 2. DockerDesktopアプリを立ち上げる
 3. `docker-compose up -d --build`
 
@@ -36,7 +22,11 @@ mysql:
 **Laravel環境構築**
 1. `docker-compose exec php bash`
 2. `composer install`
-3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.envファイルを作成
+3. 「.env.example」ファイルをコピーして 「.env」ファイルを作成
+``` bash
+cp .env.example .env
+```
+
 4. .envに以下の環境変数を追加
 ``` text
 DB_CONNECTION=mysql
@@ -45,6 +35,15 @@ DB_PORT=3306
 DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
+
+MAIL_MAILER=smtp
+MAIL_HOST=mailhog
+MAIL_PORT=1025
+MAIL_FROM_ADDRESS=example@example.com
+MAIL_FROM_NAME="${APP_NAME}"
+
+STRIPE_KEY=your_stripe_publishable_key
+STRIPE_SECRET=your_stripe_secret_key
 ```
 5. アプリケーションキーの作成
 ``` bash
@@ -56,66 +55,85 @@ php artisan key:generate
 php artisan migrate
 ```
 
-7. シーディングの実行
+7. シンボリックリンクの作成
+``` bash
+php artisan storage:link
+```
+
+8. シーディングの実行
 ``` bash
 php artisan db:seed
 ```
-### ダミーデータ
-シーディングの実行で、テストユーザー1名と、weight_target 1件・weight_logs 35件を作成します。
-- email: test@example.com
-- password: password123
+## 認証機能について
+- 会員登録・ログイン・ログアウト・メール認証は Laravel Fortify を用いて実装しています。
+- `/login`、`/register`、`/email/verify` は Fortify のルートを使用しています。
+- 旧 `Auth::routes()` 依存は解消済みです。
 
-## 使用技術(実行環境)
+### ダミーデータ
+シーディングの実行で、以下のデータを作成します。
+
+1. テスト出品者1名（登録ユーザーが存在しない場合）
+- name: テスト出品者
+- email: test@example.com
+
+2. ダミーデータ10件
+- 販売価格
+- ブランド名
+- 商品の説明
+- 商品画像（外部URLを利用）
+- 商品の状態
+- カテゴリー
+
+必要に応じて以下で再作成できます。
+``` bash
+php artisan migrate:fresh --seed
+```
+
+## 使用技術（実行環境）
 - PHP 8.1.34
 - Laravel 8.83.8
 - MySQL 8.0.26
 - nginx 1.21.1
+- Laravel Fortify
+- Stripe
+- MailHog
+- Docker / Docker Compose
 
-## ER図
-![ER Diagram](er_diagram.png)
-※ er.drawio は編集用の元データです
+## 主な機能
+- 会員登録
+- ログイン / ログアウト
+- メール認証
+- 商品一覧表示
+- 商品詳細表示
+- 商品検索
+- いいね機能
+- コメント機能
+- マイリスト表示
+- 商品出品
+- 商品購入
+- 配送先変更
+- マイページ表示
+- Stripe 決済連携
 
-## テーブル仕様
-### users
-| カラム | 型 | 説明 |
-|--------|---------|-------------|
-| id | bigint | ユーザーID |
-| name | string | ユーザー名 |
-| email | string | メールアドレス |
-| password | string | パスワード(ハッシュ化) |
-| created_at | timestamp | 作成日時 |
-| updated_at | timestamp | 更新日時 |
-
-### weight_logs
-| カラム | 型 | 説明 |
-|--------|---------|-------------|
-| id | bigint | ログID |
-| user_id | bigint | ユーザーID(FK) |
-| date | date | 記録日 |
-| weight | decimal(4,1) | 体重(kg) |
-| calories | integer | 摂取カロリー |
-| exercise_time | time | 運動時間 |
-| exercise_content | text | 運動内容 |
-| created_at | timestamp | 作成日時 |
-| updated_at | timestamp | 更新日時 |
-
-### weight_target
-| カラム | 型 | 説明 |
-|--------|---------|-------------|
-| id | bigint | 目標ID |
-| user_id | bigint | ユーザーID(FK) |
-| target_weight | decimal(4,1) | 目標体重 |
-| created_at | timestamp | 作成日時 |
-| updated_at | timestamp | 更新日時 |
-
+## 主なテーブル
+- users
+- items
+- item_images
+- categories
+- item_categories
+- item_conditions
+- orders
+- likes
+- comments
 
 ## URL
 - 開発環境：http://localhost/
 - ユーザー登録：http://localhost/register
 - ログイン：http://localhost/login
+- MailHog： http://localhost:8025/
 - phpMyAdmin：http://localhost:8080/
 
-## 補足
-exercise_content カラムを nullable に変更するマイグレーションで
-Laravel の仕様上 doctrine/dbal (v3系) を使用しています。
-composer install 実行時に自動でインストールされます。
+## ER図
+![ER Diagram](er_diagram.png)
+※ er.drawio は編集用の元データです
+

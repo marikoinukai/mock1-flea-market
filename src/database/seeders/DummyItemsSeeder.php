@@ -3,11 +3,11 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Item;
 use App\Models\ItemImage;
 use App\Models\ItemCondition;
 use App\Models\User;
-
 
 class DummyItemsSeeder extends Seeder
 {
@@ -20,8 +20,9 @@ class DummyItemsSeeder extends Seeder
     {
         // seller（出品者）を1人決める：いなければ1人作る
         $seller = User::first() ?? User::factory()->create([
-            'name' => 'ダミー出品者',
-            'email' => 'dummy@example.com',
+            'name' => 'テスト出品者',
+            'email' => 'test@example.com',
+            'password' => Hash::make('password123'),
         ]);
 
         // 「コンディション名 → item_conditions.id」変換用
