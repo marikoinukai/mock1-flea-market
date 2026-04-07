@@ -23,7 +23,9 @@
         <div class="items-container">
             {{-- 件数ゼロ --}}
             @if ($items->isEmpty())
-                <p class="items-empty">表示する商品がありません</p>
+                @if (!($tab === 'mylist' && !auth()->check()))
+                    <p class="items-empty">表示する商品がありません</p>
+                @endif
             @else
                 {{-- 一覧（4列グリッド） --}}
                 <div class="items-grid">

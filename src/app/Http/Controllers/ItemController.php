@@ -36,9 +36,10 @@ class ItemController extends Controller
 
         // マイリスト（いいねした商品）
         if ($tab === 'mylist') {
-            // 未ログインならログイン画面へ
+            // 未ログインなら何も表示しない
             if (!$userId) {
-                return redirect()->guest(route('login'));
+                $items = collect();
+                return view('items.index', compact('items', 'tab', 'keyword'));
             }
 
             $query->whereHas('likes', function ($q) use ($userId) {
